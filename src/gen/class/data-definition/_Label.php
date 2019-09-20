@@ -35,9 +35,7 @@ class EntityDataDefinition_Label extends GenerateEntity {
  }
 
   protected function start(){
-    $this->string .= "  //DEFINIR ETIQUETA DE IDENTIFICACION
-  //Este metodo puede requerir acceder a datos de otras entidades que obligatoriamente deben estar en el storage
-  label (row: { [index: string]: any }): string {
+    $this->string .= "  label (row: { [index: string]: any }): string {
     let ret = \"\";
 ";
   }
@@ -61,9 +59,7 @@ class EntityDataDefinition_Label extends GenerateEntity {
 
   protected function fk(){
     if(!count($this->fields["fk"])) return;
-    $this->string .= "
-    //CUIDAR DE NO GENERAR RECURSIONES INFINITAS PARA LAS RELACIONES
-";
+        
     $fields = $this->fields["fk"];
 
     foreach($fields as $field) {

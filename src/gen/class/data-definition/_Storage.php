@@ -20,7 +20,7 @@ class EntityDataDefinition_Storage extends GenerateEntity {
   }
 
   protected function end(){
-    $this->string .= "    this.dd.storage.setItem(\"" . $this->getEntity()->getName() . "\" + row.id, row);
+    $this->string .= "    this.stg.setItem(\"" . $this->getEntity()->getName() . "\" + row.id, row);
   }
 
 ";
@@ -55,7 +55,7 @@ class EntityDataDefinition_Storage extends GenerateEntity {
     $row .= "['{$names[count($names)-1]}']";
 
     $this->string .= "    ){
-      this.dd.storage.setItem('{$tableName}' + {$row}.id, {$row});
+      this.stg.setItem('{$tableName}' + {$row}.id, {$row});
       delete {$row};
     }
 ";
@@ -66,7 +66,7 @@ class EntityDataDefinition_Storage extends GenerateEntity {
 
 
     $this->string .= "    if(('{$key}' in {$row}) && ({$row_}.id !=  'undefined')){
-      this.dd.storage.setItem('{$tableName}' + {$row_}.id, {$row_});
+      this.stg.setItem('{$tableName}' + {$row_}.id, {$row_});
       delete {$row_};
     }
 ";*/
