@@ -12,7 +12,6 @@ class DataDefinitionLoaderService extends GenerateFile {
 
   }
 
-
   protected function generateCode(){
     $this->importsStart();
     $this->importsDataDefinition();
@@ -20,7 +19,6 @@ class DataDefinitionLoaderService extends GenerateFile {
     $this->methodGet();
     $this->classEnd();
   }
-
 
   protected function importsStart(){
     $this->string .= "import { Injectable } from '@angular/core';
