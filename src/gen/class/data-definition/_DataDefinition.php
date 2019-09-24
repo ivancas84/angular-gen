@@ -20,7 +20,8 @@ class _ClassDataDefinition extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "import { DataDefinition } from 'src/app/core/class/data-definition';
+    $this->string .= "import { DataDefinitionService } from 'src/app/core/service/data-definition/data-definition.service';
+import { DataDefinition } from 'src/app/core/class/data-definition';
 
 export class _" . $this->entity->getName("XxYy") . "DataDefinition extends DataDefinition {
   entity: string = '{$this->entity->getName()}';

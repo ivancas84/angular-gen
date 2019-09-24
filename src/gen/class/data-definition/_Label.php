@@ -35,7 +35,7 @@ class EntityDataDefinition_Label extends GenerateEntity {
  }
 
   protected function start(){
-    $this->string .= "  label (row: { [index: string]: any }): string {
+    $this->string .= "  label (row: { [index: string]: any }, dd: DataDefinitionService): string {
     let ret = \"\";
 ";
   }
@@ -78,13 +78,13 @@ class EntityDataDefinition_Label extends GenerateEntity {
   }
 
   protected function date(Field $field){
-    $this->string .= "    if (row[\"" . $field->getName() . "\"]) ret = ret.trim() + \" \" + this.dd.parser.dateFormat(this.dd.parser.date(row[\"" . $field->getName() . "\"]), 'd/m/Y');
+    $this->string .= "    if (row[\"" . $field->getName() . "\"]) ret = ret.trim() + \" \" + this.parser.dateFormat(this.parser.date(row[\"" . $field->getName() . "\"]), 'd/m/Y');
 
 ";
   }
 
   protected function get(Field $field){
-    $this->string .= "    if(row." . $field->getName() . ") ret = ret.trim() + \" \" + this.dd.labelGet(\"" . $field->getEntityRef()->getName() . "\", row." . $field->getName() . ");
+    $this->string .= "    if(row." . $field->getName() . ") ret = ret.trim() + \" \" + dd.labelGet(\"" . $field->getEntityRef()->getName() . "\", row." . $field->getName() . ");
 ";
   }
 

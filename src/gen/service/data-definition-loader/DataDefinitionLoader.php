@@ -23,26 +23,29 @@ class DataDefinitionLoaderService extends GenerateFile {
   protected function importsStart(){
     $this->string .= "import { Injectable } from '@angular/core';
 
-import { DataDefinition } from '../core/service/data-definition/data-definition';
-import { DataDefinitionService } from './data-definition/data-definition.service';
+import { SessionStorageService } from 'src/app/core/service/storage/session-storage.service';
+import { ParserService } from 'src/app/core/service/parser/parser.service';
+import { DataDefinition } from 'src/app/core/class/data-definition';
 
 ";
   }
 
   protected function importsDataDefinition(){
     foreach($this->structure as $entity){
-      $this->string .= "import { " . $entity->getName("XxYy") . "DataDefinition } from './data-definition/" . $entity->getName("xx-yy") . "/" . $entity->getName("xx-yy") . "-data-definition';
+      $this->string .= "import { " . $entity->getName("XxYy") . "DataDefinition } from 'src/app/class/data-definition/" . $entity->getName("xx-yy") . "/" . $entity->getName("xx-yy") . "-data-definition';
 ";
     }
   }
 
   protected function classStart(){
     $this->string .= "
-
 @Injectable({
   providedIn: 'root'
 })
 export class DataDefinitionLoaderService {
+
+  constructor(protected stg: SessionStorageService, protected parser: ParserService){ }
+
 ";
   }
 

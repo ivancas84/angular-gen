@@ -19,13 +19,13 @@ class DataDefinitionLoaderService_get extends Generate {
 
   protected function body(){
     foreach($this->structure as $entity){
-      $this->string .= "        case \"" . $entity->getName() . "\": { return new " . $entity->getName("XxYy") . "DataDefinition(dd); }
+      $this->string .= "      case \"" . $entity->getName() . "\": { return new " . $entity->getName("XxYy") . "DataDefinition(this.stg, this.parser); }
 ";
       }
   }
 
   protected function end(){
-    $this->string .= "     }
+    $this->string .= "    }
   }
 ";
   }
