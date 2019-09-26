@@ -3,7 +3,7 @@
 require_once("generate/GenerateFileEntity.php");
 
 
-class ComponentShowHtml extends GenerateFileEntity {
+class Gen_ShowHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-show.component.html";
@@ -13,9 +13,9 @@ class ComponentShowHtml extends GenerateFileEntity {
 
 
   public function generateCode() {
-    $this->string .= "<app-" . $this->getEntity()->getName("xx-yy") . "-search [display]=\"display\" (changeSearch)=\"changeSearch(\$event)\"></app-" . $this->getEntity()->getName("xx-yy") . "-search>
-<app-" . $this->getEntity()->getName("xx-yy") . "-table [display]=\"display\" [rows]=\"rows\" [sync]=\"sync\" (changeData)=\"changeData(\$event)\"></app-" . $this->getEntity()->getName("xx-yy") . "-table>
-<app-pagination [display]=\"display\" [collectionSize]=\"collectionSize\" (changeData)=\"changeData(\$event)\"></app-pagination>
+    $this->string .= "<!-- app-" . $this->getEntity()->getName("xx-yy") . "-search [display]=\"display\" (changeSearch)=\"changeSearch(\$event)\"></app-" . $this->getEntity()->getName("xx-yy") . "-search -->
+<app-" . $this->getEntity()->getName("xx-yy") . "-table [data]=\"data$\" [sync]=\"sync\" (changeData)=\"orderChange(\$event)\"></app-" . $this->getEntity()->getName("xx-yy") . "-table>
+<app-pagination [page]=\"display.page\" [size]=\"display.size\" [collectionSize$]=\"collectionSize$\" (pageChange)=\"changeData(\$event)\"></app-pagination>
 ";
 
   }

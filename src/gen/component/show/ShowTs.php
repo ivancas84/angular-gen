@@ -2,7 +2,7 @@
 
 require_once("generate/GenerateFileEntity.php");
 
-class ComponentShowTs extends GenerateFileEntity {
+class Gen_ShowTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
     $dir = PATH_GEN . "tmp/component/show/" . $entity->getName("xx-yy") . "-show/";
@@ -13,8 +13,8 @@ class ComponentShowTs extends GenerateFileEntity {
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataDefinitionService } from '../../service/data-definition/data-definition.service';
-import { ShowComponent } from '../../core/component/show/show.component';
+import { DataDefinitionService } from '@service/data-definition/data-definition.service';
+import { ShowComponent } from '@component/show/show.component';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-show',
@@ -22,9 +22,14 @@ import { ShowComponent } from '../../core/component/show/show.component';
 })
 export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowComponent {
 
-  constructor(protected dd: DataDefinitionService, protected route: ActivatedRoute, protected router: Router) {
+  entity: string = \"" . $this->entity->getName() . "\";
+
+  constructor(
+    protected dd: DataDefinitionService, 
+    protected route: ActivatedRoute, 
+    protected router: Router
+  ) {
     super(dd, route, router);
-    this.entity = \"" . $this->entity->getName() . "\";
   }
 
 }
