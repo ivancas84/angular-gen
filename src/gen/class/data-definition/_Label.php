@@ -84,7 +84,7 @@ class EntityDataDefinition_Label extends GenerateEntity {
   }
 
   protected function get(Field $field){
-    $this->string .= "    if(row." . $field->getName() . ") ret = ret.trim() + \" \" + dd.labelGet(\"" . $field->getEntityRef()->getName() . "\", row." . $field->getName() . ");
+    $this->string .= "    if(row." . $field->getName() . ") ret = ret.trim() + \" \" + dd.label(\"" . $field->getEntityRef()->getName() . "\", row." . $field->getName() . ");
 ";
   }
 
