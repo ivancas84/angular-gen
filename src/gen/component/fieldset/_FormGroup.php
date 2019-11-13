@@ -18,7 +18,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
 
   protected function start() {
     $this->string .= "  formGroup(): FormGroup {
-    let fg: FormGroup = this.dd.fb.group({
+    let fg: FormGroup = this.fb.group({
       id:'',
 ";
   }
@@ -56,7 +56,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
       switch ( $field->getSubtype() ) {
         case "typeahead": $this->typeahead($field); break;
 
-        default: $this->defectoFk($field); //name, email
+        //default: $this->defectoFk($field); //name, email
       }
     }
   }
@@ -127,7 +127,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
   }
 
   protected function timestamp(Field $field) {
-    $this->string .= "      " . $field->getName() . ": this.dd.fb.group({
+    $this->string .= "      " . $field->getName() . ": this.fb.group({
 ";
     if($field->isNotNull()) {
       $this->string .= "        date: ['', Validators.required ],

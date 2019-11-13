@@ -2,7 +2,7 @@
 
 require_once("generate/GenerateFileEntity.php");
 
-class ComponentFieldsetHtml extends GenerateFileEntity {
+class FieldsetHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null) {
     $file = $entity->getName("xx-yy") . "-fieldset.component.html";

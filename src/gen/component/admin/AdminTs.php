@@ -2,7 +2,7 @@
 
 require_once("generate/GenerateFileEntity.php");
 
-class ComponentAdminTs extends GenerateFileEntity {
+class Gen_AdminTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
     $dir = PATH_GEN . "tmp/component/admin/" . $entity->getName("xx-yy") . "-admin/";
@@ -25,23 +25,15 @@ class ComponentAdminTs extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+    $this->string .= "import { AdminComponent } from '@component/admin/admin.component';
+import { OnInit, Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-";
-    if($this->hasRelationsFkTypeahead()){
-      $this->string .= "import { forkJoin } from 'rxjs';
-import { first } from 'rxjs/operators';
-";
-    }
-
-    $this->string .= "import { DataDefinitionService } from '../../service/data-definition/data-definition.service';
-import { Entity } from '../../core/class/entity';
-import { AdminComponent } from '../../core/component/admin/admin.component';
-import { MessageService } from '../../core/service/message/message.service';
-import { ValidatorsService } from '../../core/service/validators/validators.service';
-import { {$this->entity->getName("XxYy")} } from '../../class/entity/{$this->entity->getName("xx-yy")}/{$this->entity->getName("xx-yy")}';
+import { DataDefinitionService } from '@service/data-definition/data-definition.service';
+import { MessageService } from '@service/message/message.service';
+import { ValidatorsService } from '@service/validators/validators.service';
+import { SessionStorageService } from '@service/storage/session-storage.service';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-admin',
@@ -51,8 +43,21 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
 
   readonly entity: string = \"" . $this->entity->getName() . "\";
 
-  constructor(protected fb: FormBuilder, protected route: ActivatedRoute, protected router: Router, protected location: Location, protected dd: DataDefinitionService, protected message: MessageService)  {
-    super(fb, route, router, location, dd, message);
+  sync: any = {
+    " . $this->entity->getName() . ":null
+  }
+
+  constructor(
+    protected fb: FormBuilder, 
+    protected route: ActivatedRoute, 
+    protected router: Router, 
+    protected location: Location, 
+    protected dd: DataDefinitionService, 
+    protected message: MessageService, 
+    protected validators: ValidatorsService,
+    protected storage: SessionStorageService, 
+  ) {
+    super(fb, route, router, location, dd, message, validators, storage);
   }
 
 ";

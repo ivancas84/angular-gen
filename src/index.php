@@ -1,25 +1,30 @@
 <?php
 
-//controlador para generar el proyecto AngularIoGen
+/**
+ * Controlador para generar el proyecto AngularIoGen
+ * Es posible seleccionar la generacion de una determinada interfaz mediante el parametro "gen", ejemplo http://localhost/angular-gen/src/?gen=admin
+ */
 
-//configuracion general
-require_once("../config/config.php"); //configuracion
+require_once("../config/config.php");
 require_once("class/model/entity/structure.php");
-
+require_once("class/tools/Filter.php");
 
 require_once("gen/service/data-definition-loader/DataDefinitionLoader.php");
-
 
 $generate = Filter::get("gen");
 
 switch($generate){
-    case null: case "loader": loeader($structure); break;
+    case null: case "loader": loader($structure); break;
 }
 
 foreach($structure as $entity){
     switch($generate){
         case null: case "data-definition": data_definition($entity); break;
         case null: case "show": show($entity); break;
+        case null: case "admin": admin($entity); break;
+        case null: case "fieldset": fieldset($entity); break;
+
+
     } 
 }
 
@@ -46,5 +51,21 @@ function show(Entity $entity){
 
     require_once("gen/component/show/ShowHtml.php");
     $gen = new Gen_ShowHtml($entity);
+    $gen->generate();
+}
+
+function admin(Entity $entity){
+    require_once("gen/component/admin/AdminTs.php");
+    $gen = new Gen_AdminTs($entity);
+    $gen->generate();
+
+    require_once("gen/component/admin/AdminHtml.php");
+    $gen = new Gen_AdminHtml($entity);
+    $gen->generate();
+}
+
+function fieldset(Entity $entity){
+    require_once("gen/component/fieldset/FieldsetTs.php");
+    $gen = new FieldsetTs($entity);
     $gen->generate();
 }
