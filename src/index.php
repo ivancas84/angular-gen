@@ -68,4 +68,8 @@ function fieldset(Entity $entity){
     require_once("gen/component/fieldset/FieldsetTs.php");
     $gen = new FieldsetTs($entity);
     $gen->generate();
+
+    require_once("gen/component/fieldset/FieldsetHtml.php");
+    $gen = new FieldsetHtml($entity);
+    $gen->generate();
 }
