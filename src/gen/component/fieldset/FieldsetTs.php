@@ -17,6 +17,7 @@ class FieldsetTs extends GenerateFileEntity {
     $this->initOptions();
     $this->initData();
     $this->formGroup();
+    $this->getters();
     $this->end();
   }
 

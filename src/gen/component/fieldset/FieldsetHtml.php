@@ -19,7 +19,7 @@ class FieldsetHtml extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "<fieldset [formGroup]=\"fieldsetForm\">
+    $this->string .= "<fieldset [formGroup]=\"fieldset\">
 ";
   }
 
@@ -86,7 +86,7 @@ class FieldsetHtml extends GenerateFileEntity {
     <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
     <div class=\"col-sm-10\">
       <div class=\"input-group\" formGroupName=\"{$field->getName()}\">
-        <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" ngbDatepicker #" . $field->getName("xxYy") . "Date=\"ngbDatepicker\" formControlName=\"date\"  [ngClass]=\"{'is-invalid':(fieldsetForm.get('" . $field->getName() . ".date').invalid && (fieldsetForm.get('" . $field->getName() . ".date').dirty || fieldsetForm.get('" . $field->getName() . ".date').touched))}\">
+        <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" ngbDatepicker #" . $field->getName("xxYy") . "Date=\"ngbDatepicker\" formControlName=\"date\"  [ngClass]=\"{'is-invalid':" . $field->getName() . ".date.invalid && " . $field->getName() . ".date.dirty || " . $field->getName() . ".date.touched))}\">
         <div class=\"input-group-append\">
           <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . "Date.toggle()\" type=\"button\">
             <span class=\"oi oi-calendar\"></span>
@@ -109,7 +109,7 @@ class FieldsetHtml extends GenerateFileEntity {
     $this->string .= "  <div class=\"form-group form-row\">
     <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
     <div class=\"col-sm-10\">
-      <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(fieldsetForm.get('" . $field->getName() . "').invalid && (fieldsetForm.get('" . $field->getName() . "').dirty || fieldsetForm.get('" . $field->getName() . "').touched))}\">
+      <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName() . ".invalid && (" . $field->getName() . ".dirty || " . $field->getName() . ".touched))}\">
 ";
     $this->templateError($field);
     $this->string .= "    </div>
@@ -169,7 +169,7 @@ class FieldsetHtml extends GenerateFileEntity {
     $this->string .= "  <div *ngIf=\"isSync('" . $field->getName() . "')\" class=\"form-group row\">
     <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
     <div class=\"col-sm-10\">
-      <app-fieldset-typeahead [fieldset]=\"fieldsetForm\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [fieldName]=\"'" . $field->getName() . "'\"></app-fieldset-typeahead>
+      <app-fieldset-typeahead [fieldset]=\"fieldset\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [fieldName]=\"'" . $field->getName() . "'\"></app-fieldset-typeahead>
 ";
       $this->templateError($field);
       $this->string .= "    </div>
