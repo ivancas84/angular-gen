@@ -2,7 +2,7 @@
 
 require_once("generate/GenerateFileEntity.php");
 
-class ComponentTableTs extends GenerateFileEntity {
+class TableTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
     $dir = PATH_GEN . "tmp/component/table/" . $entity->getName("xx-yy") . "-table/";
@@ -10,14 +10,10 @@ class ComponentTableTs extends GenerateFileEntity {
     parent::__construct($dir, $file, $entity);
   }
 
-
   protected function generateCode(){
     $this->string .= "import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { TableComponent } from '../../core/component/table/table.component';
-import { DataDefinitionService } from '../../service/data-definition/data-definition.service';
+import { TableComponent } from '@component/table/table.component';
+import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-table',
@@ -25,8 +21,8 @@ import { DataDefinitionService } from '../../service/data-definition/data-defini
 })
 export class " . $this->entity->getName("XxYy") . "TableComponent extends TableComponent {
 
-  constructor(protected dd: DataDefinitionService, protected modalService: NgbModal, protected router: Router) {
-    super(dd, modalService, router);
+  constructor(protected dd: DataDefinitionService) {
+    super(dd);
     this.entity = '" . $this->entity->getName() . "';
   }
 

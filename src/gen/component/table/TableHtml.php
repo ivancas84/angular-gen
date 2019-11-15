@@ -3,7 +3,7 @@
 require_once("generate/GenerateFileEntity.php");
 
 
-class ComponentTableHtml extends GenerateFileEntity {
+class TableHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-table.component.html";
@@ -27,7 +27,7 @@ class ComponentTableHtml extends GenerateFileEntity {
 
   protected function start(){
     $this->string .= "
-    <div [hidden]=\"!rows.length\" class=\"table-responsive\">
+    <div class=\"table-responsive\">
       <table class=\"table table-striped table-bordered table-hover\">
         <thead>
           <tr>
@@ -44,7 +44,7 @@ class ComponentTableHtml extends GenerateFileEntity {
       $name = $field->getName("Xx Yy");
       $sort = $field->getName();
 
-      $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"setOrder('{$sort}')\">{$name}</button></th>
+      $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('{$sort}')\">{$name}</button></th>
 " ;
 
     }
@@ -63,7 +63,7 @@ class ComponentTableHtml extends GenerateFileEntity {
         }
       }
 
-     $this->string .= "            <th *ngIf=\"isSync('" . $field->getName() . "')\"><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"setOrder('" . implode("', '", $fieldsFkMain) . "')\">{$name}</button></th>
+     $this->string .= "            <th *ngIf=\"isSync('" . $field->getName() . "')\"><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('" . implode("', '", $fieldsFkMain) . "')\">{$name}</button></th>
 " ;
 
     }
@@ -78,7 +78,7 @@ class ComponentTableHtml extends GenerateFileEntity {
     $this->string .= "          </tr>
         </thead>
         <tbody>
-          <tr *ngFor=\"let row of rows; let i = index\">
+          <tr *ngFor=\"let row of (data$ | async); let i = index\">
   ";
   }
 
