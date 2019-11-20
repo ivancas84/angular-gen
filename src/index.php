@@ -19,11 +19,25 @@ switch($generate) {
 
 foreach($structure as $entity) {
     switch($generate){
-        case null: case "data-definition": data_definition($entity); break;
-        case null: case "show": show($entity); break;
-        case null: case "admin": admin($entity); break;
-        case null: case "fieldset": fieldset($entity); break;
-        case null: case "table": table($entity); break;
+        //services
+        case "data-definition": data_definition($entity); break;
+        
+        //components
+        case "show": show($entity); break;
+        case "admin": admin($entity); break;
+        case "fieldset": fieldset($entity); break;
+        case "table": table($entity); break;
+        
+        case null:
+            //services
+            data_definition($entity);
+            
+            //components
+            show($entity);
+            admin($entity);
+            fieldset($entity);
+            table($entity);
+        break;
     }
 }
 
