@@ -16,7 +16,7 @@ class Gen_AdminHtml extends GenerateFileEntity {
   public function generateCode() {
     $this->string .= "
 <form [formGroup]=\"adminForm\" (ngSubmit)=\"onSubmit()\" novalidate>
-  <app-" . $this->getEntity()->getName("xx-yy") . "-fieldset [adminForm]=\"adminForm\" [sync]=\"sync.{$this->getEntity()->getName()}\" [data\$]=\"data\$\"></app-" . $this->getEntity()->getName("xx-yy") . "-fieldset>
+  <app-" . $this->getEntity()->getName("xx-yy") . "-fieldset [adminForm]=\"adminForm\" [data\$]=\"data\$\"></app-" . $this->getEntity()->getName("xx-yy") . "-fieldset>
   <button type=\"submit\" class=\"btn btn-primary\">Aceptar</button>&nbsp;
   <button type=\"button\" class=\"btn btn-secondary\" (click)=\"back()\"><span class=\"oi oi-arrow-thick-left\" title=\"Volver\"></span></button>
   <button type=\"button\" (click)=\"reset()\" class=\"btn btn-secondary\" ><span class=\"oi oi-reload\" title=\"Restablecer\"></span></button>

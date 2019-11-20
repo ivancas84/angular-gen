@@ -42,9 +42,6 @@ class FieldsetTs_formGroup extends GenerateEntity {
 
       }
     }
-
-    $this->string .= "    });
-";
   }
 
   protected function fk() {
@@ -56,7 +53,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
       switch ( $field->getSubtype() ) {
         case "typeahead": $this->typeahead($field); break;
 
-        //default: $this->defectoFk($field); //name, email
+        default: $this->defecto($field); //name, email
       }
     }
   }
@@ -74,7 +71,8 @@ class FieldsetTs_formGroup extends GenerateEntity {
 
 
   protected function end() {
-    $this->string .= "    return fg;
+    $this->string .= "    });
+    return fg;
   }
 
 ";
@@ -142,18 +140,15 @@ class FieldsetTs_formGroup extends GenerateEntity {
 ";
   }
 
-
-  protected function defectoFk(Field $field) {
-      $validator = ($field->isNotNull()) ?  ", Validators.required" : "";
-
-      $this->string .= "    if(this.dd.isSync('{$field->getName()}', this.sync)) fg.addControl('{$field->getName()}', new FormControl(''{$validator}));
-";
-  }
-
   protected function typeahead(Field $field) {
-    $validator = ($field->isNotNull()) ?  ", [Validators.required, this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')]" : ", this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')";
+    $validators = ($field->isNotNull()) ?  "[Validators.required, this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')]" : "[this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')]";
 
-    $this->string .= "    if(this.dd.isSync('{$field->getName()}', this.sync)) fg.addControl('{$field->getName()}', new FormControl(''{$validator}));
+    $this->string .= "      {$field->getName()}: ['', {
+        validators: {$validators},
+";
+          if($field->isUnique()) $this->string .= "        asyncValidators: this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'),
+";
+    $this->string .= "      }],
 ";
 }
 

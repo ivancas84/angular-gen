@@ -11,7 +11,7 @@ class FieldsetTs_initData extends GenerateEntity {
     $this->setFields();
     if(!count($this->fields)) return;
     $this->start();
-    $this->isSync();
+    $this->body();
     $this->end();
 
     return $this->string;
@@ -35,9 +35,9 @@ class FieldsetTs_initData extends GenerateEntity {
 ";
   }
 
-  protected function isSync() {
+  protected function body() {
     foreach($this->fields as $field){
-      $this->string .= "          if(this.dd.isSync('" . $field->getName() . "', this.sync) && response." . $field->getName() . ") {
+      $this->string .= "          if(response." . $field->getName() . ") {
             var ob = this.dd.getOrNull(\"" . $field->getEntityRef()->getName() . "\",response." . $field->getName() . ");
             obs.push(ob);
           }

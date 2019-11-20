@@ -11,7 +11,7 @@ class FieldsetTs_initOptions extends GenerateEntity {
     $this->setFields();
     if(!count($this->fields)) return;
     $this->start();
-    $this->isSync();
+    $this->body();
     $this->forkJoinStart();
     $this->forkJoinBody();
     $this->forkJoinEnd();
@@ -34,7 +34,7 @@ class FieldsetTs_initOptions extends GenerateEntity {
 ";
   }
 
-  protected function isSync() {
+  protected function body() {
     foreach($this->fields as $field){
       $this->string .= "
     var ob = this.dd.all('tipo_sede', new Display);

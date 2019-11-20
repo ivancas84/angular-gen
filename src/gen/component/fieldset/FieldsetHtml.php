@@ -151,7 +151,7 @@ class FieldsetHtml extends GenerateFileEntity {
 
 
   protected function select(Field $field) {
-    $this->string .= "  <div *ngIf=\"isSync('" . $field->getName() . "')\" class=\"form-group form-row\">
+    $this->string .= "  <div class=\"form-group form-row\">
     <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
     <div class=\"col-sm-10\">
       <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
@@ -166,7 +166,7 @@ class FieldsetHtml extends GenerateFileEntity {
   }
 
   protected function typeahead(Field $field) {
-    $this->string .= "  <div *ngIf=\"isSync('" . $field->getName() . "')\" class=\"form-group row\">
+    $this->string .= "  <div class=\"form-group row\">
     <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
     <div class=\"col-sm-10\">
       <app-fieldset-typeahead [fieldset]=\"fieldset\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [fieldName]=\"'" . $field->getName() . "'\"></app-fieldset-typeahead>

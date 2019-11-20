@@ -43,10 +43,6 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
 
   readonly entity: string = \"" . $this->entity->getName() . "\";
 
-  sync: any = {
-    " . $this->entity->getName() . ":null
-  }
-
   constructor(
     protected fb: FormBuilder, 
     protected route: ActivatedRoute, 
