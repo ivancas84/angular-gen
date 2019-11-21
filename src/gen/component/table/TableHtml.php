@@ -63,7 +63,7 @@ class TableHtml extends GenerateFileEntity {
         }
       }
 
-     $this->string .= "            <th *ngIf=\"isSync('" . $field->getName() . "')\"><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('" . implode("', '", $fieldsFkMain) . "')\">{$name}</button></th>
+     $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('" . implode("', '", $fieldsFkMain) . "')\">{$name}</button></th>
 " ;
 
     }
@@ -105,7 +105,7 @@ class TableHtml extends GenerateFileEntity {
 
     protected function valuesFk(){
       foreach($this->getEntity()->getFieldsFk() as $field){
-        $this->string .= "            <td *ngIf=\"isSync('" . $field->getName() . "')\">" ;
+        $this->string .= "            <td>" ;
         switch($field->getSubtype()){
           default: $this->string .= "<a [routerLink]=\"['/" . $field->getEntityRef()->getName("xx-yy") . "-show']\" [queryParams]=\"{id:row." . $field->getName() . "}\" >{{row." . $field->getName() . " | label:'{$field->getEntityRef()->getName()}'}}</a>" ;
         }
