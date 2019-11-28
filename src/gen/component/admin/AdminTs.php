@@ -31,7 +31,7 @@ import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
-import { MessageService } from '@service/message/message.service';
+import { ToastService } from '@service/ng-bootstrap/toast.service';
 import { ValidatorsService } from '@service/validators/validators.service';
 import { SessionStorageService } from '@service/storage/session-storage.service';
 
@@ -49,11 +49,11 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
     protected router: Router, 
     protected location: Location, 
     protected dd: DataDefinitionService, 
-    protected message: MessageService, 
+    protected toast: ToastService, 
     protected validators: ValidatorsService,
     protected storage: SessionStorageService, 
   ) {
-    super(fb, route, router, location, dd, message, validators, storage);
+    super(fb, route, router, location, dd, toast, validators, storage);
   }
 
 ";

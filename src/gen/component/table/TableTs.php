@@ -21,10 +21,7 @@ import { DataDefinitionService } from '@service/data-definition/data-definition.
 })
 export class " . $this->entity->getName("XxYy") . "TableComponent extends TableComponent {
 
-  constructor(protected dd: DataDefinitionService) {
-    super(dd);
-    this.entity = '" . $this->entity->getName() . "';
-  }
+  readonly entity = '" . $this->entity->getName() . "';
 
 }
 

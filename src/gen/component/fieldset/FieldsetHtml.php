@@ -86,7 +86,7 @@ class FieldsetHtml extends GenerateFileEntity {
     <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
     <div class=\"col-sm-10\">
       <div class=\"input-group\" formGroupName=\"{$field->getName()}\">
-        <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" ngbDatepicker #" . $field->getName("xxYy") . "Date=\"ngbDatepicker\" formControlName=\"date\"  [ngClass]=\"{'is-invalid':" . $field->getName() . ".date.invalid && " . $field->getName() . ".date.dirty || " . $field->getName() . ".date.touched))}\">
+        <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" ngbDatepicker #" . $field->getName("xxYy") . "Date=\"ngbDatepicker\" formControlName=\"date\"  [ngClass]=\"{'is-invalid':" . $field->getName("xxYy") . ".date.invalid && " . $field->getName("xxYy") . ".date.dirty || " . $field->getName("xxYy") . ".date.touched))}\">
         <div class=\"input-group-append\">
           <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . "Date.toggle()\" type=\"button\">
             <span class=\"oi oi-calendar\"></span>
@@ -109,7 +109,7 @@ class FieldsetHtml extends GenerateFileEntity {
     $this->string .= "  <div class=\"form-group form-row\">
     <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
     <div class=\"col-sm-10\">
-      <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName() . ".invalid && (" . $field->getName() . ".dirty || " . $field->getName() . ".touched))}\">
+      <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
     $this->templateError($field);
     $this->string .= "    </div>

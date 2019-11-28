@@ -5,7 +5,6 @@ require_once("generate/GenerateEntity.php");
 
 class EntityDataDefinition_Label extends GenerateEntity {
 
-
   public function generate() {
     if(!$this->defineFields()) return "";
 
@@ -35,7 +34,10 @@ class EntityDataDefinition_Label extends GenerateEntity {
  }
 
   protected function start(){
-    $this->string .= "  label (row: { [index: string]: any }, dd: DataDefinitionService): string {
+    $this->string .= "  label (id: string | number): string {
+    var row = this.stg.getItem(this.entity + id);
+    if(!row) return null;
+
     let ret = \"\";
 ";
   }
@@ -84,7 +86,10 @@ class EntityDataDefinition_Label extends GenerateEntity {
   }
 
   protected function get(Field $field){
-    $this->string .= "    if(row." . $field->getName() . ") ret = ret.trim() + \" \" + dd.label(\"" . $field->getEntityRef()->getName() . "\", row." . $field->getName() . ");
+    $this->string .= "    if(row." . $field->getName() . ") {
+      var e = new " . $field->getEntityRef()->getName("XxYy") . "DataDefinition(this.stg, this.parser);
+      ret = ret.trim() + \" \" + e.label(row." . $field->getName() . ");
+    }
 ";
   }
 
