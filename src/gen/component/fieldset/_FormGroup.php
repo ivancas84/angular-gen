@@ -19,7 +19,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
   protected function start() {
     $this->string .= "  formGroup(): FormGroup {
     let fg: FormGroup = this.fb.group({
-      id:'',
+      id:null,
 ";
   }
 
@@ -86,7 +86,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
   }
 
   protected function defecto(Field $field) {
-    $this->string .= "      {$field->getName()}: ['', {
+    $this->string .= "      {$field->getName()}: [null, {
 ";
     if($field->isNotNull()) $this->string .= "        validators: Validators.required,
 ";
@@ -103,7 +103,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
     $asyncValidators = array();
     if($field->isUnique()) array_push($asyncValidators, "this.unique('{$field->getName()}', '{$field->getEntity()->getName()}')");
 
-    $this->string .= "      {$field->getName()}: ['', {
+    $this->string .= "      {$field->getName()}: [null, {
         validators: [" . implode(',', $validators) . "],
         asyncValidators: [" . implode(',', $asyncValidators) . "],
       }],
@@ -117,7 +117,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
     $asyncValidators = array();
     if($field->isUnique()) array_push($asyncValidators, "this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}')");
 
-    $this->string .= "      {$field->getName()}: ['', {
+    $this->string .= "      {$field->getName()}: [null, {
         validators: [" . implode(',', $validators) . "],
         asyncValidators: [" . implode(',', $asyncValidators) . "],
       }],
@@ -128,12 +128,12 @@ class FieldsetTs_formGroup extends GenerateEntity {
     $this->string .= "      " . $field->getName() . ": this.fb.group({
 ";
     if($field->isNotNull()) {
-      $this->string .= "        date: ['', Validators.required ],
-        time: ['', Validators.required ],
+      $this->string .= "        date: [null, Validators.required ],
+        time: [null, Validators.required ],
 ";
     } else {
-      $this->string .= "        date: '',
-        time: ''
+      $this->string .= "        date: null,
+        time: null
 ";
     }
     $this->string .= "      }),
@@ -143,7 +143,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
   protected function typeahead(Field $field) {
     $validators = ($field->isNotNull()) ?  "[Validators.required, this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')]" : "[this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')]";
 
-    $this->string .= "      {$field->getName()}: ['', {
+    $this->string .= "      {$field->getName()}: [null, {
         validators: {$validators},
 ";
           if($field->isUnique()) $this->string .= "        asyncValidators: this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'),

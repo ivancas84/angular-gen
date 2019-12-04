@@ -29,6 +29,8 @@ class FieldsetTs_initData extends GenerateEntity {
     $this->string .= "  initData(): void {
     this.data$.subscribe(
       response => {
+        this.setDefaultValues();
+
         if(!isEmptyObject(response)) {
           var obs = [];
 

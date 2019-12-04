@@ -37,7 +37,7 @@ class FieldsetTs_initOptions extends GenerateEntity {
   protected function body() {
     foreach($this->fields as $field){
       $this->string .= "
-    var ob = this.dd.all('tipo_sede', new Display);
+    var ob = this.dd.all('{$field->getName()}', new Display);
     obs.push(ob);
 ";
     }

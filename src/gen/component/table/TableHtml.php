@@ -90,7 +90,7 @@ class TableHtml extends GenerateFileEntity {
         if($field->isHidden()) continue; //se omiten los campos de agregacion
         $this->string .= "            <td>" ;
         switch($field->getSubtype()){
-          //case "checkbox": $this->checkbox($field); break;
+          case "checkbox": $this->checkbox($field); break;
           case "date": $this->date($field); break;
           //case "timestamp": $this->timestamp($field); break;
           //case "time": $this->time($field); break;
@@ -147,7 +147,7 @@ class TableHtml extends GenerateFileEntity {
   protected function options(){
     $this->string .= "            <td>
               <a class=\"btn btn-warning btn-sm\" [routerLink]=\"['/" . $this->getEntity()->getName("xx-yy") . "-admin']\" [queryParams]=\"{id:row.id}\" ><span class=\"oi oi-pencil\" title=\"Modificar\"></span></a>
-              <button class=\"btn btn-danger btn-sm\" type=\"button\" (click)=\"delete(i)\"><span class=\"oi oi-trash\" title=\"Eliminar\"></span></button>
+              <!-- button class=\"btn btn-danger btn-sm\" type=\"button\" (click)=\"delete(i)\"><span class=\"oi oi-trash\" title=\"Eliminar\"></span></button -->
 ";
 
     //$this->optionsRef();
@@ -163,13 +163,13 @@ class TableHtml extends GenerateFileEntity {
 
 
   protected function defecto(Field $field){
-    $this->string .= "<div>{{row." . $field->getName() . "}}</div>";
+    $this->string .= "{{row." . $field->getName() . "}}";
   }
 
 
 
   protected function textarea(Field $field){
-    $this->string .= "<span title=\"{{row." . $field->getName() . "}}\">{{row." . $field->getName() . ".summary}}</span>";
+    $this->string .= "<span title=\"{{row." . $field->getName() . "}}\">{{row." . $field->getName() . " | summary}}</span>";
   }
 
   protected function date(Field $field){
@@ -177,12 +177,12 @@ class TableHtml extends GenerateFileEntity {
   }
 
   protected function checkbox(Field $field){
-    $this->string .= "<div>{{row." . $field->getName() . " ? 'Sí' : 'No'}}</div>";
+    $this->string .= "{{row." . $field->getName() . " | SiNo}}";
   }
 
 
   protected function time(Field $field){
-    $this->string .= "<div>{{row." . $field->getName() . "}}</div>";
+    $this->string .= "{{row." . $field->getName() . "}}";
   }
 
   protected function timestamp(Field $field){

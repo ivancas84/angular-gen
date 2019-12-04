@@ -11,6 +11,7 @@ class _ClassDataDefinition extends GenerateFileEntity {
   }
 
   protected function generateCode(){
+    $this->imports();
     $this->start();
     $this->storage();
     //$this->options();
@@ -19,14 +20,19 @@ class _ClassDataDefinition extends GenerateFileEntity {
 
   }
 
-  protected function start() {
-    $this->string .= "import { DataDefinitionService } from 'src/app/core/service/data-definition/data-definition.service';
-import { DataDefinition } from 'src/app/core/class/data-definition';
+  protected function start() {    
+    $this->string .= "import { DataDefinition } from 'src/app/core/class/data-definition';
 
 export class _" . $this->entity->getName("XxYy") . "DataDefinition extends DataDefinition {
   entity: string = '{$this->entity->getName()}';
 
 ";
+  }
+
+  protected function imports(){
+    require_once("gen/class/data-definition/_Imports.php");
+    $gen = new EntityDataDefinition_Imports($this->entity);
+    $this->string .= $gen->generate();
   }
 
   protected function storage(){

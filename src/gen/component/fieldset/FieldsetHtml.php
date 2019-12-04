@@ -67,15 +67,23 @@ class FieldsetHtml extends GenerateFileEntity {
     <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
     <div class=\"col-sm-10\">
       <div class=\"input-group\">
-        <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" ngbDatepicker #" . $field->getName("xxYy") . "_=\"ngbDatepicker\" formControlName=\"{$field->getName()}\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
+        <input class=\"form-control\" placeholder=\"dd/mm/yyyy\" ngbDatepicker #" . $field->getName("xxYy") . "_=\"ngbDatepicker\" formControlName=\"{$field->getName()}\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
         <div class=\"input-group-append\">
           <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . "_.toggle()\" type=\"button\">
-            <span class=\"oi oi-calendar\"></span>
+            <span title=\"Calendario\" class=\"oi oi-calendar\"></span>
+          </button>
+          <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . ".setValue(null)\" type=\"button\">
+            <span title=\"Limpiar\" class=\"oi oi-reload\"></span>
           </button>
         </div>
       </div>
 ";
-      $this->templateError($field);
+      $this->templateErrorStart($field);
+      $this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsUnique($field); 
+      $this->templateErrorDate($field);
+      $this->templateErrorEnd($field);
+
       $this->string .= "    </div>
   </div>
 ";
@@ -111,8 +119,11 @@ class FieldsetHtml extends GenerateFileEntity {
     <div class=\"col-sm-10\">
       <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
-    $this->templateError($field);
-    $this->string .= "    </div>
+      $this->templateErrorStart($field);
+      $this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsUnique($field); 
+      $this->templateErrorEnd($field);    
+      $this->string .= "    </div>
   </div>
 ";
   }
@@ -124,7 +135,8 @@ class FieldsetHtml extends GenerateFileEntity {
       <input class=\"form-check-input\" type=\"checkbox\" formControlName=\"{$field->getName()}\"> {$field->getName()}
     </label>
 ";
-    $this->templateError($field);
+    $this->templateErrorStart($field);
+    $this->templateErrorEnd($field);
     $this->string .= "  </div>
 ";
   }
@@ -142,7 +154,10 @@ class FieldsetHtml extends GenerateFileEntity {
 
     $this->string .= "      </select>
 ";
-    $this->templateError($field);
+    $this->templateErrorStart($field);
+    $this->templateErrorIsNotNull($field); 
+    $this->templateErrorIsUnique($field);
+    $this->templateErrorEnd($field);
     $this->string .= "    </div>
   </div>
 ";
@@ -159,7 +174,10 @@ class FieldsetHtml extends GenerateFileEntity {
         <option *ngFor=\"let option of (options | async)?." . $field->getEntityRef()->getName() . "\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
       </select>
 ";
-    $this->templateError($field);
+    $this->templateErrorStart($field);
+    $this->templateErrorIsNotNull($field); 
+    $this->templateErrorIsUnique($field);
+    $this->templateErrorEnd($field);
     $this->string .= "    </div>
   </div>
 ";
@@ -171,7 +189,12 @@ class FieldsetHtml extends GenerateFileEntity {
     <div class=\"col-sm-10\">
       <app-fieldset-typeahead [fieldset]=\"fieldset\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [fieldName]=\"'" . $field->getName() . "'\"></app-fieldset-typeahead>
 ";
-      $this->templateError($field);
+      $this->templateErrorStart($field);
+      $this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsUnique($field);
+      $this->templateErrorTypeahead($field);
+      $this->templateErrorEnd($field);
+      
       $this->string .= "    </div>
   </div>
 ";
@@ -184,25 +207,26 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
   }
 
-
-
-
-  protected function templateError(Field $field){
+  protected function templateErrorStart(Field $field){
     $this->string .= "      <div class=\"text-danger\" *ngIf=\"({$field->getName("xxYy")}.touched || {$field->getName("xxYy")}.dirty) && {$field->getName("xxYy")}.invalid\">
 ";
-    if($field->isNotNull()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.required\">Debe completar valor</div>
-";
-    if($field->isUnique()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$field->getEntity()->getName("xx-yy")}-admin\" [queryParams]=\"{'{$field->getName()}':{$field->getName('xxYy')}.value}\">Cargar</a></div>
-";
-    switch($field->getSubtype()) {
-      case "email": $this->templateErrorEmail($field); break;
-      case "dni": $this->templateErrorDni($field); break;
-      case "typeahead": $this->templateErrorTypeahead($field); break;
+  }
 
-    }
+  protected function templateErrorEnd(Field $field){
     $this->string .= "      </div>
 ";
   }
+
+  protected function templateErrorIsNotNull(Field $field){
+    if($field->isNotNull()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.required\">Debe completar valor</div>
+";
+  }
+
+  protected function templateErrorIsUnique(Field $field){
+    if($field->isUnique()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$field->getEntity()->getName("xx-yy")}-admin\" [queryParams]=\"{'{$field->getName()}':{$field->getName('xxYy')}.value}\">Cargar</a></div>
+";
+  }
+
 
   protected function templateErrorEmail(Field $field) {
     $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.email\">Debe ser un email válido</div>
@@ -211,6 +235,11 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function templateErrorTypeahead(Field $field) {
     $this->string .= "        <div *ngIf=\"({$field->getName("xxYy")}.touched && {$field->getName("xxYy")}.errors.unselected)\">Valor no seleccionado</div>
+";
+  }
+
+  protected function templateErrorDate(Field $field) {
+    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.ngbDate\">Ingrese una fecha válida</div>
 ";
   }
 
