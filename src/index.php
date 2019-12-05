@@ -27,6 +27,7 @@ foreach($structure as $entity) {
         case "admin": admin($entity); break;
         case "fieldset": fieldset($entity); break;
         case "table": table($entity); break;
+        case "search": search($entity); break;
         
         case null:
             //services
@@ -93,5 +94,15 @@ function table(Entity $entity) {
 
     require_once("gen/component/table/TableHtml.php");
     $gen = new TableHtml($entity);
+    $gen->generate();
+}
+
+function search(Entity $entity) {
+    require_once("gen/component/search/SearchTs.php");
+    $gen = new Gen_SearchTs($entity);
+    $gen->generate();
+
+    require_once("gen/component/search/SearchHtml.php");
+    $gen = new Gen_SearchHtml($entity);
     $gen->generate();
 }

@@ -32,7 +32,7 @@ import { DataDefinition } from 'src/app/core/class/data-definition';
 
   protected function importsDataDefinition(){
     foreach($this->structure as $entity){
-      $this->string .= "import { " . $entity->getName("XxYy") . "DataDefinition } from 'src/app/class/data-definition/" . $entity->getName("xx-yy") . "/" . $entity->getName("xx-yy") . "-data-definition';
+      $this->string .= "import { " . $entity->getName("XxYy") . "DataDefinition } from 'src/app/class/data-definition/" . $entity->getName("xx-yy") . "-data-definition';
 ";
     }
   }

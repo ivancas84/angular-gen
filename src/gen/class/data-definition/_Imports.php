@@ -24,7 +24,7 @@ class EntityDataDefinition_Imports extends GenerateEntity {
 
   protected function body(){
     foreach($this->fields as $field) {
-        $this->string .= "import { " . $field->getEntityRef()->getName("XxYy") . "DataDefinition } from '@class/data-definition/" . $field->getEntityRef()->getName("xx-yy") . "/" . $field->getEntityRef()->getName("xx-yy") . "-data-definition';
+        $this->string .= "import { " . $field->getEntityRef()->getName("XxYy") . "DataDefinition } from '@class/data-definition/" . $field->getEntityRef()->getName("xx-yy") . "-data-definition';
 ";        
       }
     }
