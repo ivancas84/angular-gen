@@ -34,6 +34,7 @@ foreach($structure as $entity) {
             data_definition($entity);
             
             //components
+            search($entity);
             show($entity);
             admin($entity);
             fieldset($entity);
