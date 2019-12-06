@@ -149,7 +149,9 @@ class Gen_SearchHtml extends GenerateFileEntity {
 
   protected function switchStart(){
     $this->string .= "            <div class=\"col-xs-4\" [ngSwitch]=\"f(i)\" >
+              <!-- todos -->
               <input *ngSwitchCase=\"'_search'\" class=\"form-control form-control-sm\" formControlName=\"value\">
+
 ";
   }
 
@@ -200,8 +202,9 @@ class Gen_SearchHtml extends GenerateFileEntity {
 
 
   protected function defecto($fieldName){
-    $this->string .= "             <!-- " . $fieldName . " -->
-    <input *ngSwitchCase=\"'" . $fieldName . "'\" class=\"form-control form-control-sm\" formControlName=\"value\">
+    $this->string .= "              <!-- " . $fieldName . " -->
+              <input *ngSwitchCase=\"'" . $fieldName . "'\" class=\"form-control form-control-sm\" formControlName=\"value\">
+
 ";
   }
 
@@ -211,7 +214,8 @@ class Gen_SearchHtml extends GenerateFileEntity {
 
   protected function typeahead($fieldName, $entityName){
     $this->string .= "              <!-- " . $fieldName . " -->
-    <app-filter-typeahead *ngSwitchCase=\"'" . $fieldName . "'\" [entityName]=\"'" . $entityName . "'\" [filter]=\"filter\" ></app-filter-typeahead>
+              <app-filter-typeahead *ngSwitchCase=\"'" . $fieldName . "'\" [entityName]=\"'" . $entityName . "'\" [filter]=\"filter\" ></app-filter-typeahead>
+
 ";
 
   }
