@@ -33,6 +33,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
         case "checkbox": $this->checkbox($field); break;
         case "email": $this->email($field); break;
         case "dni": $this->dni($field); break;
+        case "year": $this->year($field); break;
         case "timestamp":  break;
         /**
          * La administracion de timestamp no se define debido a que no hay un controlador que actualmente lo soporte
@@ -89,6 +90,23 @@ class FieldsetTs_formGroup extends GenerateEntity {
     $this->string .= "      {$field->getName()}: [null, {
 ";
     if($field->isNotNull()) $this->string .= "        validators: Validators.required,
+";
+    if($field->isUnique()) $this->string .= "        asyncValidators: this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'),
+";
+    $this->string .= "      }],
+";
+  }
+
+  protected function year(Field $field) {
+    $validators = "[";
+    if($field->isNotNull()) $validators .= "Validators.required, ";
+    if($field->getLength()) $validators .= "this.validators.maxYear('" . $field->getLength() . "'), ";
+    if($field->getMinLength()) $validators .= "this.validators.minYear('" . $field->getMinLength() . "'), ";
+    $validators .= "this.validators.year()]";
+    
+    $this->string .= "      {$field->getName()}: [null, {
+";
+    $this->string .= "        validators: {$validators},
 ";
     if($field->isUnique()) $this->string .= "        asyncValidators: this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'),
 ";

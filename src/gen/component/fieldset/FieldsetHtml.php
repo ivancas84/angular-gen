@@ -33,7 +33,7 @@ class FieldsetHtml extends GenerateFileEntity {
         case "checkbox": $this->checkbox($field); break;
         case "date": $this->date($field);  break;
         //case "float": case "integer": case "cuil": case "dni": $this->number($field); break;
-        // case "year": $this->date($field); break;
+        case "year": $this->year($field); break;
         case "timestamp":
           //la administracion de timestamp se encuentra deshabilitada debido a que requiere de formato adicional
           //$this->timestamp($field);
@@ -41,6 +41,7 @@ class FieldsetHtml extends GenerateFileEntity {
         // case "time": $this->time($field); break;
         case "select_text": $this->selectValues($field); break;
         case "select_int": $this->selectValues($field); break;
+        case "textarea": $this->textarea($field); break;
         default: $this->defecto($field); //name, email
       }
     }
@@ -109,7 +110,22 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
   }
 
+  protected function year(Field $field) {
 
+    $this->string .= "  <div class=\"form-group form-row\">
+    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
+    <div class=\"col-sm-10\">
+      <input class=\"form-control\" placeholder=\"yyyy\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
+";
+      $this->templateErrorStart($field);
+      $this->templateErrorIsNotNull($field); 
+      $this->templateErrorYear($field); 
+      $this->templateErrorIsUnique($field); 
+      $this->templateErrorEnd($field);    
+      $this->string .= "    </div>
+  </div>
+";
+  }
 
 
   protected function defecto(Field $field) {
@@ -118,6 +134,23 @@ class FieldsetHtml extends GenerateFileEntity {
     <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
     <div class=\"col-sm-10\">
       <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
+";
+      $this->templateErrorStart($field);
+      $this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsUnique($field); 
+      $this->templateErrorEnd($field);    
+      $this->string .= "    </div>
+  </div>
+";
+  }
+
+
+  protected function textarea(Field $field) {
+
+    $this->string .= "  <div class=\"form-group form-row\">
+    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
+    <div class=\"col-sm-10\">
+      <textarea class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></textarea>
 ";
       $this->templateErrorStart($field);
       $this->templateErrorIsNotNull($field); 
@@ -232,6 +265,18 @@ class FieldsetHtml extends GenerateFileEntity {
     $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.email\">Debe ser un email válido</div>
 ";
   }
+
+
+  protected function templateErrorYear(Field $field) {
+    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.nonNumeric\">Ingrese sólo números</div>
+        <div *ngIf=\"{$field->getName("xxYy")}.errors.notYear\">No es un año válido</div>    
+";
+    if($field->getMinLength()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.minYear\">Valor no permitido</div>
+";
+    if($field->getLength()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.maxYear\">Valor no permitido</div>
+";    
+  }
+
 
   protected function templateErrorTypeahead(Field $field) {
     $this->string .= "        <div *ngIf=\"({$field->getName("xxYy")}.touched && {$field->getName("xxYy")}.errors.unselected)\">Valor no seleccionado</div>
