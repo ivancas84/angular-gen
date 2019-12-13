@@ -25,6 +25,8 @@ foreach($structure as $entity) {
         //components
         case "show": show($entity); break;
         case "admin": admin($entity); break;
+        case "detail": detail($entity); break;
+        case "card": card($entity); break;
         case "fieldset": fieldset($entity); break;
         case "table": table($entity); break;
         case "search": search($entity); break;
@@ -39,7 +41,11 @@ foreach($structure as $entity) {
             admin($entity);
             fieldset($entity);
             table($entity);
+            detail($entity);
+            card($entity);
+
         break;
+        
     }
 }
 
@@ -75,6 +81,26 @@ function admin(Entity $entity) {
 
     require_once("gen/component/admin/AdminHtml.php");
     $gen = new Gen_AdminHtml($entity);
+    $gen->generate();
+}
+
+function detail(Entity $entity) {
+    require_once("gen/component/detail/DetailTs.php");
+    $gen = new Gen_DetailTs($entity);
+    $gen->generate();
+
+    require_once("gen/component/detail/DetailHtml.php");
+    $gen = new Gen_DetailHtml($entity);
+    $gen->generate();
+}
+
+function card(Entity $entity) {
+    require_once("gen/component/card/CardTs.php");
+    $gen = new GenCardTs($entity);
+    $gen->generate();
+
+    require_once("gen/component/card/CardHtml.php");
+    $gen = new GenCardHtml($entity);
     $gen->generate();
 }
 

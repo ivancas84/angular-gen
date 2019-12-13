@@ -3,7 +3,7 @@
 require_once("generate/GenerateFileEntity.php");
 
 
-class TableHtml extends GenerateFileEntity {
+class GenCardHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-table.component.html";
@@ -14,112 +14,58 @@ class TableHtml extends GenerateFileEntity {
 
   public function generateCode() {
     $this->start();
-    $this->headersNf();
-    $this->headersFk();
-    $this->headersOptions();
-    $this->body();
-    $this->valuesNf();
-    $this->valuesFk();
-    $this->options();
+    $this->nf();
+    $this->fk();
+    //$this->options();
     $this->end();
   }
 
 
   protected function start(){
-    $this->string .= "
-    <div class=\"table-responsive\">
-      <table class=\"table table-striped table-bordered table-hover\">
-        <thead>
-          <tr>
+    $this->string .= "<div *ngIf=\"data$ | async as data\" class=\"card\">
+  <div class=\"card-header\">
+    {$this->entity->getName('Xx Yy')} {{data.id | label:\"{$this->entity->getName()}\"}}
+  </div>
+
+  <div class=\"card-body\">
+    <dl class=\"row\">
 ";
   }
 
-
-
-  protected function headersNf(){
-    $fields = $this->getEntity()->getFieldsNf();
-
-    foreach ($fields as $field) {
+  protected function nf(){
+    foreach ($this->getEntity()->getFieldsNf() as $field) {
       if($field->isHidden()) continue; //se omiten los campos de agregacion
-      $name = $field->getName("Xx Yy");
-      $sort = $field->getName();
+      
+      $this->string .= "      <dt class=\"col-sm-3\">{$field->getName('Xx Yy')}</dt>
+      <dd class=\"col-sm-9\">" ;
+      switch($field->getSubtype()){
+        case "checkbox": $this->checkbox($field); break;
+        case "date": $this->date($field); break;
+        //case "timestamp": $this->timestamp($field); break;
+        //case "time": $this->time($field); break;
+        default: $this->defecto($field); break;
+      }
+      $this->string .= "</dd>
 
-      $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('{$sort}')\">{$name}</button></th>
-" ;
-
+";
     }
   }
 
-  protected function headersFk(){
+  protected function fk(){
     foreach ($this->getEntity()->getFieldsFk() as $field) {
+      if($field->isHidden()) continue; //se omiten los campos de agregacion
+      
+      $this->string .= "      <dt class=\"col-sm-3\">{$field->getName('Xx Yy')}</dt>
+      <dd class=\"col-sm-9\"><a [routerLink]=\"['/" . $field->getEntityRef()->getName("xx-yy") . "-detail']\" [queryParams]=\"{id:data." . $field->getName() . "}\" >{{data." . $field->getName() . " | label:'{$field->getEntityRef()->getName()}'}}</a></dd>
 
-      $name = $field->getName("Xx Yy");
-
-      $fieldsFk = $field->getEntityRef()->getFields();
-      $fieldsFkMain = array();
-      foreach($fieldsFk as $fieldFk){
-        if($fieldFk->isMain()){
-          array_push($fieldsFkMain, $field->getAlias() . "_" . $fieldFk->getName());
-        }
-      }
-
-     $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('" . implode("', '", $fieldsFkMain) . "')\">{$name}</button></th>
-" ;
-
+";
     }
   }
-
-  protected function headersOptions(){
-    $this->string .= "            <th>Opciones</th>
-  " ;
-  }
-
-  protected function body(){
-    $this->string .= "          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor=\"let row of (data$ | async); let i = index\">
-  ";
-  }
-
-
-    protected function valuesNf(){
-
-
-      foreach ($this->getEntity()->getFieldsNf() as $field) {
-        if($field->isHidden()) continue; //se omiten los campos de agregacion
-        $this->string .= "            <td>" ;
-        switch($field->getSubtype()){
-          case "checkbox": $this->checkbox($field); break;
-          case "date": $this->date($field); break;
-          //case "timestamp": $this->timestamp($field); break;
-          //case "time": $this->time($field); break;
-          default: $this->defecto($field); break;
-        }
-        $this->string .= "</td>
-  " ;
-      }
-    }
-
-
-
-    protected function valuesFk(){
-      foreach($this->getEntity()->getFieldsFk() as $field){
-        $this->string .= "            <td>" ;
-        switch($field->getSubtype()){
-          default: $this->string .= "<a [routerLink]=\"['/" . $field->getEntityRef()->getName("xx-yy") . "-show']\" [queryParams]=\"{id:row." . $field->getName() . "}\" >{{row." . $field->getName() . " | label:'{$field->getEntityRef()->getName()}'}}</a>" ;
-        }
-        $this->string .= "</td>
-  " ;
-      }
-    }
-
 
   protected function end(){
-    $this->string .= "          </tr>
-        </tbody>
-      </table>
-    </div>
+    $this->string .= "    </dl>
+  </div>
+</div>
 ";
   }
 
@@ -129,32 +75,6 @@ class TableHtml extends GenerateFileEntity {
 
 
 
-
-
-
-
-
-
-  protected function optionsRef(){
-    foreach($this->getEntity()->getFieldsRef() as $field){
-      $this->string .= "              <a class=\"btn btn-info btn-sm\" [routerLink]=\"['/" . $field->getEntity()->getName("xx-yy") . "-show']\" [queryParams]=\"{" . $field->getName() . ":row.id}\">" . $field->getEntity()->getName("Xx Yy") . "</a>
-";
-    }
-
-
-  }
-
-  protected function options(){
-    $this->string .= "            <td>
-              <a class=\"btn btn-warning btn-sm\" [routerLink]=\"['/" . $this->getEntity()->getName("xx-yy") . "-admin']\" [queryParams]=\"{id:row.id}\" ><span class=\"oi oi-pencil\" title=\"Modificar\"></span></a>
-              <!-- button class=\"btn btn-danger btn-sm\" type=\"button\" (click)=\"delete(i)\"><span class=\"oi oi-trash\" title=\"Eliminar\"></span></button -->
-";
-
-    //$this->optionsRef();
-
-    $this->string .= "            </td>
-";
-  }
 
 
 
@@ -163,30 +83,30 @@ class TableHtml extends GenerateFileEntity {
 
 
   protected function defecto(Field $field){
-    $this->string .= "{{row." . $field->getName() . "}}";
+    $this->string .= "{{data." . $field->getName() . "}}";
   }
 
 
 
   protected function textarea(Field $field){
-    $this->string .= "<span title=\"{{row." . $field->getName() . "}}\">{{row." . $field->getName() . " | summary}}</span>";
+    $this->string .= "<span title=\"{{data." . $field->getName() . "}}\">{{data." . $field->getName() . " | summary}}</span>";
   }
 
   protected function date(Field $field){
-    $this->string .= "{{row." . $field->getName() . " | toDate | date:'dd/MM/yyyy'}}";
+    $this->string .= "{{data." . $field->getName() . " | toDate | date:'dd/MM/yyyy'}}";
   }
 
   protected function checkbox(Field $field){
-    $this->string .= "{{row." . $field->getName() . " | SiNo}}";
+    $this->string .= "{{data." . $field->getName() . " | SiNo}}";
   }
 
 
   protected function time(Field $field){
-    $this->string .= "{{row." . $field->getName() . "}}";
+    $this->string .= "{{data." . $field->getName() . "}}";
   }
 
   protected function timestamp(Field $field){
-    $this->string .= "{{row." . $field->getName() . ".date | date:'dd/MM/yyyy'}} {{row." . $field->getName() . ".time}}";
+    $this->string .= "{{data." . $field->getName() . ".date | date:'dd/MM/yyyy'}} {{data." . $field->getName() . ".time}}";
   }
 
 
