@@ -79,8 +79,6 @@ class FieldsetTs_formGroup extends GenerateEntity {
 ";
   }
 
-
-
   protected function checkbox(Field $field) {
       $this->string .= "      " . $field->getName() . ": false,
 ";
@@ -93,6 +91,20 @@ class FieldsetTs_formGroup extends GenerateEntity {
 ";
     if($field->isUnique()) $this->string .= "        asyncValidators: this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'),
 ";
+
+    if($field->isUniqueMultiple()) {
+      
+      $fieldsUniqueNames = [];
+      foreach($field->getEntity()->getFieldsUniqueMultiple() as $fieldUnique) {
+        array_push($fieldsUniqueNames, $fieldUnique->getName());
+      }
+
+      $f = "'" . implode("', '", $fieldsUniqueNames) . "'";
+
+      $this->string .= "        asyncValidators: this.validators.uniqueMultiple('{$field->getEntity()->getName()}', [{$f}]),
+";
+    }
+
     $this->string .= "      }],
 ";
   }
