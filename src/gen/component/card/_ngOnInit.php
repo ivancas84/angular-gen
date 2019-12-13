@@ -3,7 +3,7 @@
 require_once("generate/GenerateEntity.php");
 
 
-class GenTableTs_ngOnInit extends GenerateEntity {
+class GenCardTs_ngOnInit extends GenerateEntity {
 
   protected $fields = [];
 
@@ -11,11 +11,7 @@ class GenTableTs_ngOnInit extends GenerateEntity {
     $this->setFields();
     if(!count($this->fields)) return;
     $this->start();
-    $this->declareIds();
-    $this->startLoop();
-    $this->loop();
-    $this->endLoop();
-    $this->getAll();
+    $this->getOrNull();
     $this->end();
 
     return $this->string;
@@ -38,45 +34,17 @@ class GenTableTs_ngOnInit extends GenerateEntity {
 ";
   }
 
-  protected function declareIds(){
+
+  protected function getOrNull() {
     foreach($this->fields as $field){
-      $this->string .= "          var ids{$field->getName('XxYy')} = [];    
-";  
-    }
-  }
-
-  protected function startLoop() {
-    $this->string .= "
-          for(var i in response){
-";
-  }
-
-  protected function loop() {
-    foreach($this->fields as $field){
-      $this->string .= "            if(response[i].{$field->getName()}) ids{$field->getName('XxYy')}.push(response[i].{$field->getName()});
-";
-    }
-  }
-
-  protected function endLoop() {
-    $this->string .= "          }
-
-";
-  }
-
-  protected function getAll() {
-    foreach($this->fields as $field){
-      $this->string .= "          if(ids{$field->getName('XxYy')}.length) {
-            var ob = this.dd.getAll(\"{$field->getName()}\",ids{$field->getName('XxYy')});
+      $this->string .= "          if(response.{$field->getName()}) {
+            var ob = this.dd.getAll(\"{$field->getName()}\",response.{$field->getName()});
             obs.push(ob);
           }
 
 ";
     }
   }
-
-
-
 
   protected function end() {
     $this->string .= "          if(obs.length){ forkJoin(obs).subscribe( () => this.load$.next(true)) } 
