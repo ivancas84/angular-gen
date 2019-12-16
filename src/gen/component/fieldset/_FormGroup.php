@@ -79,21 +79,34 @@ class FieldsetTs_formGroup extends GenerateEntity {
 ";
   }
 
-  protected function checkbox(Field $field) {
-      $this->string .= "      " . $field->getName() . ": false,
+  protected function formControlStart(Field $field){
+    $this->string .= "      {$field->getName()}: [null, {
 ";
   }
 
-  protected function defecto(Field $field) {
-    $this->string .= "      {$field->getName()}: [null, {
+  protected function formControlEnd(){
+    $this->string .= "      }],
 ";
-    if($field->isNotNull()) $this->string .= "        validators: Validators.required,
+  }
+  
+  protected function formControlValidators(array $validators){
+    if(!empty($validators)) $this->string .= "        validators: [" . implode(', ', $validators) . "],
 ";
-    if($field->isUnique()) $this->string .= "        asyncValidators: this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'),
+  }
+
+  protected function validatorRequired(Field $field){
+    return ($field->isNotNull()) ? "Validators.required" : false;
+  }
+
+  protected function formControlAsyncValidators(array $asyncValidators){
+    if(!empty($asyncValidators)) $this->string .= "        asyncValidators: [" . implode(', ', $asyncValidators) . "],
 ";
+  }
+
+  protected function asyncValidatorUnique(Field $field){
+    if($field->isUnique()) return "this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}')";
 
     if($field->isUniqueMultiple()) {
-      
       $fieldsUniqueNames = [];
       foreach($field->getEntity()->getFieldsUniqueMultiple() as $fieldUnique) {
         array_push($fieldsUniqueNames, $fieldUnique->getName());
@@ -101,60 +114,87 @@ class FieldsetTs_formGroup extends GenerateEntity {
 
       $f = "'" . implode("', '", $fieldsUniqueNames) . "'";
 
-      $this->string .= "        asyncValidators: this.validators.uniqueMultiple('{$field->getEntity()->getName()}', [{$f}]),
-";
+      return "this.validators.uniqueMultiple('{$field->getEntity()->getName()}', [{$f}])";
     }
 
-    $this->string .= "      }],
+    return false;
+  }
+
+  protected function checkbox(Field $field) {
+    $this->string .= "      " . $field->getName() . ": false,
 ";
+  }
+
+  protected function defecto(Field $field) {
+    $validators = [];
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+
+    $asyncValidators = [];
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+
+    $this->formControlStart($field);
+    $this->formControlValidators($validators);
+    $this->formControlAsyncValidators($asyncValidators);
+    $this->formControlEnd();
   }
 
   protected function year(Field $field) {
-    $validators = "[";
-    if($field->isNotNull()) $validators .= "Validators.required, ";
-    if($field->getLength()) $validators .= "this.validators.maxYear('" . $field->getLength() . "'), ";
-    if($field->getMinLength()) $validators .= "this.validators.minYear('" . $field->getMinLength() . "'), ";
-    $validators .= "this.validators.year()]";
+    $validators = [];
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));    
+    if($field->getLength()) array_push($validators, "this.validators.maxYear('" . $field->getLength() . "')");
+    if($field->getMinLength()) array_push($validators, "this.validators.minYear('" . $field->getMinLength() . "')");
+    array_push($validators, "this.validators.year()");
     
-    $this->string .= "      {$field->getName()}: [null, {
-";
-    $this->string .= "        validators: {$validators},
-";
-    if($field->isUnique()) $this->string .= "        asyncValidators: this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'),
-";
-    $this->string .= "      }],
-";
+    $asyncValidators = [];
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+
+    $this->formControlStart($field);
+    $this->formControlValidators($validators);
+    $this->formControlAsyncValidators($asyncValidators);
+    $this->formControlEnd();
   }
 
   protected function email(Field $field) {
-    $validators = array("Validators.email");
-    if($field->isNotNull()) array_push($validators, "Validators.required");
+    $validators = [];
+    array_push($validators, "Validators.email");
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
-    $asyncValidators = array();
-    if($field->isUnique()) array_push($asyncValidators, "this.unique('{$field->getName()}', '{$field->getEntity()->getName()}')");
+    $asyncValidators = [];
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
 
-    $this->string .= "      {$field->getName()}: [null, {
-        validators: [" . implode(',', $validators) . "],
-        asyncValidators: [" . implode(',', $asyncValidators) . "],
-      }],
-";
+    $this->formControlStart($field);
+    $this->formControlValidators($validators);
+    $this->formControlAsyncValidators($asyncValidators);
+    $this->formControlEnd();
   }
 
   protected function dni(Field $field) {
     $validators = array("Validators.minLength(7)", "Validators.maxLength(9)", "Validators.pattern('^[0-9]*$')");
-    if($field->isNotNull()) array_push($validators, "Validators.required");
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
-    $asyncValidators = array();
-    if($field->isUnique()) array_push($asyncValidators, "this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}')");
+    $asyncValidators = [];
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
 
-    $this->string .= "      {$field->getName()}: [null, {
-        validators: [" . implode(',', $validators) . "],
-        asyncValidators: [" . implode(',', $asyncValidators) . "],
-      }],
-";
+    $this->formControlStart($field);
+    $this->formControlValidators($validators);
+    $this->formControlAsyncValidators($asyncValidators);
+    $this->formControlEnd();
   }
 
-  protected function timestamp(Field $field) {
+  protected function typeahead(Field $field) {
+    $validators = ["this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')"];
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+
+    $asyncValidators = [];
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+
+    $this->formControlStart($field);
+    $this->formControlValidators($validators);
+    $this->formControlAsyncValidators($asyncValidators);
+    $this->formControlEnd();
+  }
+
+  /*protected function timestamp(Field $field) {
     $this->string .= "      " . $field->getName() . ": this.fb.group({
 ";
     if($field->isNotNull()) {
@@ -168,18 +208,5 @@ class FieldsetTs_formGroup extends GenerateEntity {
     }
     $this->string .= "      }),
 ";
-  }
-
-  protected function typeahead(Field $field) {
-    $validators = ($field->isNotNull()) ?  "[Validators.required, this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')]" : "[this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')]";
-
-    $this->string .= "      {$field->getName()}: [null, {
-        validators: {$validators},
-";
-          if($field->isUnique()) $this->string .= "        asyncValidators: this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'),
-";
-    $this->string .= "      }],
-";
-}
-
+  }*/
 }
