@@ -70,13 +70,23 @@ class FieldsetTs_formGroup extends GenerateEntity {
     }
   }
 
-
   protected function end() {
-    $this->string .= "    });
+    $formGroupAsyncValidation = $this->formGroupAsyncValidation();
+    $this->string .= "    }" . $formGroupAsyncValidation . ");
     return fg;
   }
 
 ";
+  }
+
+  protected function formGroupAsyncValidation(){
+    if(!$this->entity->getFieldsUniqueMultiple()) return "";
+    $fieldsName = [];
+    foreach($this->entity->getFieldsUniqueMultiple() as $field) array_push($fieldsName, $field->getName());
+    $f = implode("', '", $fieldsName);
+    return ", {
+      asyncValidators: [this.validators.uniqueMultiple('{$this->entity->getName()}', ['{$f}'])],
+    }";
   }
 
   protected function formControlStart(Field $field){
@@ -106,7 +116,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
   protected function asyncValidatorUnique(Field $field){
     if($field->isUnique()) return "this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}')";
 
-    if($field->isUniqueMultiple()) {
+    /*if($field->isUniqueMultiple()) {
       $fieldsUniqueNames = [];
       foreach($field->getEntity()->getFieldsUniqueMultiple() as $fieldUnique) {
         array_push($fieldsUniqueNames, $fieldUnique->getName());
@@ -117,7 +127,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
       return "this.validators.uniqueMultiple('{$field->getEntity()->getName()}', [{$f}])";
     }
 
-    return false;
+    return false;*/
   }
 
   protected function checkbox(Field $field) {
