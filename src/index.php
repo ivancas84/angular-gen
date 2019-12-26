@@ -29,7 +29,7 @@ foreach($structure as $entity) {
         case "card": card($entity); break;
         case "fieldset": fieldset($entity); break;
         case "table": table($entity); break;
-        case "condition-search": conditionSearch($entity); break;
+        case "search": search($entity); break;
         
         case null:
             //services
@@ -124,12 +124,12 @@ function table(Entity $entity) {
     $gen->generate();
 }
 
-function conditionSearch(Entity $entity) {
-    require_once("gen/component/conditionSearch/ConditionSearchTs.php");
-    $gen = new Gen_ConditionSearchTs($entity);
+function search(Entity $entity) {
+    require_once("gen/component/search/SearchTs.php");
+    $gen = new Gen_SearchTs($entity);
     $gen->generate();
 
-    require_once("gen/component/conditionSearch/ConditionSearchHtml.php");
-    $gen = new Gen_ConditionsSearchHtml($entity);
+    require_once("gen/component/search/SearchHtml.php");
+    $gen = new Gen_SearchHtml($entity);
     $gen->generate();
 }
