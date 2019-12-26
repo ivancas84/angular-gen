@@ -2,11 +2,11 @@
 
 require_once("generate/GenerateFileEntity.php");
 
-class Gen_ConditionSearchHtml extends GenerateFileEntity {
+class Gen_SearchHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
-    $file = $entity->getName("xx-yy") . "-condition-search.component.html";
-    if(!$directorio) $directorio = PATH_GEN . "tmp/component/condition-search/" . $entity->getName("xx-yy") . "-condition-search/";
+    $file = $entity->getName("xx-yy") . "-search.component.html";
+    if(!$directorio) $directorio = PATH_GEN . "tmp/component/search/" . $entity->getName("xx-yy") . "-search/";
     parent::__construct($directorio, $file, $entity);
   }
 

@@ -2,12 +2,12 @@
 <?php
 require_once("generate/GenerateFileEntity.php");
 
-class Gen_ConditionSearchTs extends GenerateFileEntity {
+class Gen_SearchTs extends GenerateFileEntity {
 
 
   public function __construct(Entity $entity) {
-    $dir = PATH_GEN . "tmp/component/condition-search/" . $entity->getName("xx-yy") . "-condition-search/";
-    $file = $entity->getName("xx-yy") . "-condition-search.component.ts";
+    $dir = PATH_GEN . "tmp/component/search/" . $entity->getName("xx-yy") . "-search/";
+    $file = $entity->getName("xx-yy") . "-search.component.ts";
     parent::__construct($dir, $file, $entity);
   }
 
@@ -29,8 +29,8 @@ import { isEmptyObject } from '@function/is-empty-object.function';
 import { forkJoin } from 'rxjs';
 
 @Component({
-  selector: 'app-" . $this->entity->getName("xx-yy") . "-condition-search',
-  templateUrl: './" . $this->entity->getName("xx-yy") . "-condition-search.component.html',
+  selector: 'app-" . $this->entity->getName("xx-yy") . "-search',
+  templateUrl: './" . $this->entity->getName("xx-yy") . "-search.component.html',
 })
 export class " . $this->entity->getName("XxYy") . "SearchComponent extends SearchComponent {
   entity = '" . $this->entity->getName() . "';
@@ -43,7 +43,7 @@ export class " . $this->entity->getName("XxYy") . "SearchComponent extends Searc
   }
 
   protected function initData(){
-    require_once("gen/component/conditionSearch/_initData.php");
+    require_once("gen/component/search/_initData.php");
     $gen = new Gen_SearchTs_initData($this->entity);
     $this->string .= $gen->generate();
   }
