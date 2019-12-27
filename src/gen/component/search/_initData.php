@@ -25,12 +25,12 @@ class Gen_SearchTs_initData extends GenerateEntity {
 
 
   protected function start(){
-    $this->string .= "  initData() {
+    $this->string .= "  initFilters(condition) {
     var obs = [];
  
-    for(let i = 0; i < this.condition.length; i++){
-      if((this.condition[i][0] == \"id\") && !isEmptyObject(this.condition[i][2])) {
-        var ob = this.dd.getOrNull(this.entityName,this.condition[i][2]);
+    for(let i = 0; i < condition.length; i++){
+      if((condition[i][0] == \"id\") && !isEmptyObject(condition[i][2])) {
+        var ob = this.dd.getOrNull(this.entityName,condition[i][2]);
         obs.push(ob);
       }
 
@@ -39,8 +39,8 @@ class Gen_SearchTs_initData extends GenerateEntity {
 
 protected function body() {
   foreach($this->fields as $field){
-    $this->string .= "      if((this.condition[i][0] == \"" . $field->getEntityRef()->getName() . "\") && !isEmptyObject(this.condition[i][2])) {     
-        var ob = this.dd.getOrNull(\"" . $field->getEntityRef()->getName() . "\",this.condition[i][2]);
+    $this->string .= "      if((condition[i][0] == \"" . $field->getEntityRef()->getName() . "\") && !isEmptyObject(condition[i][2])) {     
+        var ob = this.dd.getOrNull(\"" . $field->getEntityRef()->getName() . "\",condition[i][2]);
         obs.push(ob);
       }
 
@@ -50,8 +50,7 @@ protected function body() {
 
   protected function end(){
     $this->string .= "    }
-    if(obs.length){ forkJoin(obs).subscribe( () => this.initForm() ); }
-    else { this.initForm() }
+    return obs;
   }
 ";
   }

@@ -33,7 +33,7 @@ import { forkJoin } from 'rxjs';
   templateUrl: './" . $this->entity->getName("xx-yy") . "-search.component.html',
 })
 export class " . $this->entity->getName("XxYy") . "SearchComponent extends SearchComponent {
-  entity = '" . $this->entity->getName() . "';
+  readonly entityName = '" . $this->entity->getName() . "';
 
   constructor(protected fb: FormBuilder, protected dd: DataDefinitionService, protected router: Router)  {
     super(fb, dd, router);

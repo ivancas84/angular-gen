@@ -38,8 +38,8 @@ import { isEmptyObject } from '@function/is-empty-object.function';
 })
 export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends FieldsetComponent {
 
-  entityName: string = '" . $this->entity->getName() . "';
-  fieldsetName: string = '" . $this->entity->getName() . "';
+  readonly entityName: string = '" . $this->entity->getName() . "';
+  readonly fieldsetName: string = '" . $this->entity->getName() . "';
 
   constructor(
     protected fb: FormBuilder, 
