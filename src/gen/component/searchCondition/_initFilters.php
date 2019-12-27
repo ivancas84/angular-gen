@@ -50,7 +50,6 @@ protected function body() {
 
   protected function end(){
     $this->string .= "    }
-
     return obs;
   }
 
