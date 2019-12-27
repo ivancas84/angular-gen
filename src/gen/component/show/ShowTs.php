@@ -22,7 +22,7 @@ import { ShowComponent } from '@component/show/show.component';
 })
 export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowComponent {
 
-  entity: string = \"" . $this->entity->getName() . "\";
+  readonly entityName: string = \"" . $this->entity->getName() . "\";
 
   constructor(
     protected dd: DataDefinitionService, 

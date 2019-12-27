@@ -38,8 +38,7 @@ import { isEmptyObject } from '@function/is-empty-object.function';
 })
 export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends FieldsetComponent {
 
-  entityName: string = '" . $this->entity->getName() . "';
-  fieldsetName: string = '" . $this->entity->getName() . "';
+  readonly entityName: string = '" . $this->entity->getName() . "';
 
   constructor(
     protected fb: FormBuilder, 
@@ -52,14 +51,14 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
   }
 
   protected function initOptions(){
-    require_once("gen/component/fieldset/_InitOptions.php");
-    $gen = new FieldsetTs_initOptions($this->entity);
+    require_once("gen/component/_initOptions/_InitOptions.php");
+    $gen = new Gen_initOptions($this->entity);
     $this->string .= $gen->generate();
   }
 
   protected function initData(){
-    require_once("gen/component/fieldset/_InitData.php");
-    $gen = new FieldsetTs_initData($this->entity);
+    require_once("gen/component/_initData/_InitData.php");
+    $gen = new Gen_initData($this->entity);
     $this->string .= $gen->generate();
   }
 

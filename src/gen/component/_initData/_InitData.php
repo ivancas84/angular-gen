@@ -3,7 +3,7 @@
 require_once("generate/GenerateEntity.php");
 
 
-class FieldsetTs_initData extends GenerateEntity {
+class Gen_initData extends GenerateEntity {
 
   protected $fields = [];
 

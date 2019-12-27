@@ -20,7 +20,7 @@ switch($generate) {
 foreach($structure as $entity) {
     switch($generate){
         //services
-        case "data-definition": data_definition($entity); break;
+        case "data-definition": dataDefinition($entity); break;
         
         //components
         case "show": show($entity); break;
@@ -30,22 +30,25 @@ foreach($structure as $entity) {
         case "fieldset": fieldset($entity); break;
         case "table": table($entity); break;
         case "search": search($entity); break;
+        case "search-condition": searchCondition($entity); break;
+        case "search-params": searchParams($entity); break;
+
         
         case null:
             //services
-            data_definition($entity);
+            dataDefinition($entity);
             
             //components
             search($entity);
+            searchCondition($entity);
+            searchParams($entity);
             show($entity);
             admin($entity);
             fieldset($entity);
             table($entity);
             detail($entity);
             card($entity);
-
         break;
-        
     }
 }
 
@@ -54,7 +57,7 @@ function loader(array $structure) {
     $gen->generate();
 }
 
-function data_definition(Entity $entity) {
+function dataDefinition(Entity $entity) {
     require_once("gen/class/data-definition/_DataDefinition.php");
     $gen = new _ClassDataDefinition($entity);
     $gen->generate();
@@ -131,5 +134,26 @@ function search(Entity $entity) {
 
     require_once("gen/component/search/SearchHtml.php");
     $gen = new Gen_SearchHtml($entity);
+    $gen->generate();
+}
+
+function searchCondition(Entity $entity) {
+    require_once("gen/component/searchCondition/SearchConditionTs.php");
+    $gen = new Gen_SearchConditionTs($entity);
+    $gen->generate();
+
+    require_once("gen/component/searchCondition/SearchConditionHtml.php");
+    $gen = new Gen_SearchConditionHtml($entity);
+    $gen->generate();
+}
+
+
+function searchParams(Entity $entity) {
+    require_once("gen/component/searchParams/SearchParamsTs.php");
+    $gen = new Gen_SearchParamsTs($entity);
+    $gen->generate();
+
+    require_once("gen/component/searchParams/SearchParamsHtml.php");
+    $gen = new Gen_SearchParamsHtml($entity);
     $gen->generate();
 }
