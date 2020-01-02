@@ -23,8 +23,8 @@ import { SearchComponent } from '@component/search/search.component';
 export class " . $this->entity->getName("XxYy") . "SearchComponent extends SearchComponent {
   readonly entityName = '" . $this->entity->getName() . "';
 
-  constructor(protected fb: FormBuilder, protected dd: DataDefinitionService, protected router: Router)  {
-    super(fb, dd, router);
+  constructor(protected fb: FormBuilder) {
+    super(fb);
   }
 
 }

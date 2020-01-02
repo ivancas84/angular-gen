@@ -18,12 +18,13 @@ class Gen_SearchHtml extends GenerateFileEntity {
     </ng-template>
     <ng-template ngbPanelContent>
       <form [formGroup]=\"searchForm\" novalidate (ngSubmit)=\"onSubmit()\">       
-        <app-sede-search-params [form]=\"searchForm\" [data$]=\"params$\"></app-sede-search-params>
-        <app-sede-search-condition [form]=\"searchForm\" [data$]=\"condition$\"></app-sede-search-condition>
-        <div class=\"d-flex justify-content-center\">
+        <app-search-all [form]=\"searchForm\" [data$]=\"params$\"></app-search-all>
+        <!--app-sede-search-params [form]=\"searchForm\" [data$]=\"params$\"></app-sede-search-params-->
+        <!--app-sede-search-condition [form]=\"searchForm\" [data$]=\"condition$\"></app-sede-search-condition-->
+        <div class=\"ml-5\">
           <button type=\"submit\" class=\"btn btn-primary btn-sm\">Buscar <span class=\"oi oi-magnifying-glass\"></span></button>
         </div>
-      <\form>
+      </form>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>    
