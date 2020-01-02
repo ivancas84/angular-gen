@@ -24,7 +24,7 @@ class GenTableTs_ngOnInit extends GenerateEntity {
   protected function setFields(){
     $this->fields = [];
     foreach($this->entity->getFieldsFk() as $field){
-      if(!$field->isAdmin()) continue;
+      if($field->isHidden()) continue;
       if($field->getSubtype() == "typeahead") array_push($this->fields, $field);      
     }
   }
@@ -67,7 +67,7 @@ class GenTableTs_ngOnInit extends GenerateEntity {
   protected function getAll() {
     foreach($this->fields as $field){
       $this->string .= "          if(ids{$field->getName('XxYy')}.length) {
-            var ob = this.dd.getAll(\"{$field->getName()}\",ids{$field->getName('XxYy')});
+            var ob = this.dd.getAll(\"{$field->getEntityRef()->getName()}\",ids{$field->getName('XxYy')});
             obs.push(ob);
           }
 
