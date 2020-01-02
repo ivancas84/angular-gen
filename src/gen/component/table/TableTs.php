@@ -29,7 +29,7 @@ import { forkJoin } from 'rxjs';
 })
 export class " . $this->entity->getName("XxYy") . "TableComponent extends TableComponent {
 
-  readonly entity = '" . $this->entity->getName() . "';
+  readonly entityName = '" . $this->entity->getName() . "';
 
   constructor(protected dd: DataDefinitionService) {
     super();
