@@ -29,7 +29,7 @@ class TableHtml extends GenerateFileEntity {
     $this->string .= "
     <ng-template #loading>No se han encontrado registros...</ng-template>
 
-    <div *ngIf=\"load$ | async; else loading\" class=\"table-responsive\">
+    <div *ngIf=\"((data$ | async) && (data$ | async).length)); else loading\" class=\"table-responsive\">
       <table class=\"table table-striped table-bordered table-hover\">
         <thead>
           <tr>

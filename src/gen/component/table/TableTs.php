@@ -12,7 +12,7 @@ class TableTs extends GenerateFileEntity {
 
   protected function generateCode(){
     $this->start();
-    $this->ngOnOnit();
+    //$this->ngOnOnit();
     $this->end();
   }
 
