@@ -16,11 +16,15 @@ class EntityDataDefinition_Storage extends GenerateEntity {
   protected function start(){
     $this->string .= "  storage(row: { [index: string]: any }){
     if(!row) return;
+    var rowCloned = Object.assign({}, row);
+    /**
+     * se clona el objeto para poder eliminar atributos a medida que se procesa y no alterar la referencia original
+     */
 ";
   }
 
   protected function end(){
-    $this->string .= "    this.stg.setItem(\"" . $this->getEntity()->getName() . "\" + row.id, row);
+    $this->string .= "    this.stg.setItem(\"" . $this->getEntity()->getName() . "\" + rowCloned.id, rowCloned);
   }
 
 ";
@@ -39,7 +43,7 @@ class EntityDataDefinition_Storage extends GenerateEntity {
   }
 
   protected function fields($tableName, array $names){
-    $row = "row";
+    $row = "rowCloned";
     $key = $names[count($names)-1];
 
     $this->string .= "    if(('{$names[0]}' in {$row})
