@@ -41,7 +41,7 @@ import { SessionStorageService } from '@service/storage/session-storage.service'
 })
 export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminComponent implements OnInit {
 
-  readonly entity: string = \"" . $this->entity->getName() . "\";
+  readonly entityName: string = \"" . $this->entity->getName() . "\";
 
   constructor(
     protected fb: FormBuilder, 
