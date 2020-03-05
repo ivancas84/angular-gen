@@ -3,7 +3,7 @@
 require_once("generate/GenerateEntity.php");
 
 
-class GenTableTs_ngOnInit extends GenerateEntity {
+class GenShowElementTs_ngOnInit extends GenerateEntity {
 
   protected $fields = [];
 

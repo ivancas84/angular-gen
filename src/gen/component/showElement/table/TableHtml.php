@@ -3,7 +3,7 @@
 require_once("generate/GenerateFileEntity.php");
 
 
-class TableHtml extends GenerateFileEntity {
+class GenTableHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-table.component.html";

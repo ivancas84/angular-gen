@@ -29,6 +29,7 @@ foreach($structure as $entity) {
         case "card": card($entity); break;
         case "fieldset": fieldset($entity); break;
         case "table": table($entity); break;
+        case "grid": grid($entity); break;
         case "search": search($entity); break;
         case "search-condition": searchCondition($entity); break;
         case "search-params": searchParams($entity); break;
@@ -46,6 +47,7 @@ foreach($structure as $entity) {
             admin($entity);
             fieldset($entity);
             table($entity);
+            grid($entity);
             detail($entity);
             card($entity);
         break;
@@ -118,12 +120,22 @@ function fieldset(Entity $entity) {
 }
 
 function table(Entity $entity) {
-    require_once("gen/component/table/TableTs.php");
-    $gen = new TableTs($entity);
+    require_once("gen/component/showElement/table/TableTs.php");
+    $gen = new GenTableTs($entity);
     $gen->generate();
 
-    require_once("gen/component/table/TableHtml.php");
-    $gen = new TableHtml($entity);
+    require_once("gen/component/showElement/table/TableHtml.php");
+    $gen = new GenTableHtml($entity);
+    $gen->generate();
+}
+
+function grid(Entity $entity) {
+    require_once("gen/component/showElement/grid/GridTs.php");
+    $gen = new GenGridTs($entity);
+    $gen->generate();
+
+    require_once("gen/component/showElement/grid/GridHtml.php");
+    $gen = new GenGridHtml($entity);
     $gen->generate();
 }
 
