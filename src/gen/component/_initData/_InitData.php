@@ -40,10 +40,10 @@ class Gen_initData extends GenerateEntity {
 
   protected function body() {
     foreach($this->fields as $field){
-      $this->string .= "          if(response." . $field->getName() . ") {
-            var ob = this.dd.getOrNull(\"" . $field->getEntityRef()->getName() . "\",response." . $field->getName() . ");
-            obs.push(ob);
-          }
+      $this->string .= "          if(response." . $field->getName() . ")
+            obs.push(
+              this.dd.get(\"" . $field->getEntityRef()->getName() . "\",response." . $field->getName() . ")
+            );
 
 ";
     }
