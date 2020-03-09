@@ -96,8 +96,8 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
       <label class=\"col-form-label\">" . $field->getName("Xx yy") . "</label>
       <select class=\"form-control\" formControlName=\"" . $field->getName() . "\">
         <option [ngValue]=\"null\">--Todos--</option>
-        <option [ngValue]=\"true\">Sí</option>
-        <option [ngValue]=\"false\">No</option>
+        <option [ngValue]=\"'true'\">Sí</option>
+        <option [ngValue]=\"'false'\">No</option>
       </select>
     </div>
 ";

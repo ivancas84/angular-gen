@@ -3,10 +3,9 @@
 require_once("generate/GenerateEntity.php");
 
 
-class Gen_initData extends GenerateEntity {
+class GenSearchParamsTs_initData extends GenerateEntity {
 
   protected $fields = [];
-  public $dataName = "data$";
 
   public function generate() {
     $this->setFields();
@@ -28,10 +27,8 @@ class Gen_initData extends GenerateEntity {
 
   protected function start() {
     $this->string .= "  initData(): void {
-    this.data$.subscribe(
+    this.params$.subscribe(
       response => {
-        this.setDefaultValues();
-
         if(!isEmptyObject(response)) {
           var obs = [];
 

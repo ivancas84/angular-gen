@@ -49,8 +49,9 @@ export class " . $this->entity->getName("XxYy") . "SearchParamsComponent extends
   }
 
   protected function initData(){
-    require_once("gen/component/_initData/_InitData.php");
+    require_once("gen/component/searchParams/_InitData.php");
     $gen = new Gen_initData($this->entity);
+    $gen->dataName = "params";
     $this->string .= $gen->generate();
   }
 
