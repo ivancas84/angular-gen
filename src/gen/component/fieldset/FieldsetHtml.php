@@ -38,7 +38,7 @@ class FieldsetHtml extends GenerateFileEntity {
           //la administracion de timestamp se encuentra deshabilitada debido a que requiere de formato adicional
           //$this->timestamp($field);
         break;
-        // case "time": $this->time($field); break;
+        case "time": $this->time($field); break;
         case "select_text": $this->selectValues($field); break;
         case "select_int": $this->selectValues($field); break;
         case "textarea": $this->textarea($field); break;
@@ -90,6 +90,22 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
   }
 
+  protected function time(Field $field) {
+    $this->string .= "  <div class=\"form-group form-row\">
+    <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
+    <div class=\"col-sm-10\">
+      <ngb-timepicker  placeholder=\"hh:mm\" formControlName=\"" . $field->getName() . "\" [spinners]=\"false\" [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></ngb-timepicker>
+";
+      $this->templateErrorStart($field);
+      $this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsUnique($field); 
+      //$this->templateErrorDate($field);
+      $this->templateErrorEnd($field);
+
+      $this->string .= "    </div>
+  </div>
+";
+  }
   protected function timestamp(Field $field) {
     $this->string .= "  <div class=\"form-group form-row\">
     <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
