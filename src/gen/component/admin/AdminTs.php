@@ -10,21 +10,8 @@ class Gen_AdminTs extends GenerateFileEntity {
     parent::__construct($dir, $file, $entity);
   }
 
-  protected function hasRelationsFkTypeahead(){
-    if(!$this->entity->hasRelationsFk()) return false;
-    foreach($this->getEntity()->getFieldsFk() as $field) {    
-      if($field->getSubtype() == "typeahead") return true;
-    }
-    return false;
-
-  }
 
   protected function generateCode() {
-    $this->start();
-    $this->end();
-  }
-
-  protected function start() {
     $this->string .= "import { AdminComponent } from '@component/admin/admin.component';
 import { OnInit, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -39,7 +26,7 @@ import { SessionStorageService } from '@service/storage/session-storage.service'
   selector: 'app-" . $this->entity->getName("xx-yy") . "-admin',
   templateUrl: './" . $this->entity->getName("xx-yy") . "-admin.component.html',
 })
-export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminComponent implements OnInit {
+export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminComponent {
 
   readonly entityName: string = \"" . $this->entity->getName() . "\";
 
@@ -55,16 +42,13 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
   ) {
     super(fb, route, router, location, dd, toast, validators, storage);
   }
+}
 
 ";
   }
 
 
 
-  protected function end() {
-    $this->string .= "}
 
-";
-  }
 
 }
