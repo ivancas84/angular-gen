@@ -46,7 +46,7 @@ class GenTableHtml extends GenerateFileEntity {
       $name = $field->getName("Xx Yy");
       $sort = $field->getName();
 
-      $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('{$sort}')\">{$name}</button></th>
+      $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order(['{$sort}'])\">{$name}</button></th>
 " ;
 
     }
