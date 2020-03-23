@@ -124,7 +124,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
       <label class=\"col-form-label\">" . $field->getName("Xx Yy") . ":</label>
       <select class=\"form-control\" formControlName=\"" . $field->getName() . "\">
         <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
-        <option *ngFor=\"let option of (options | async)?." . $field->getEntityRef()->getName() . "\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
+        <option *ngFor=\"let option of (opt" . $field->getEntityRef()->getName('XxYy') . "$ | async)\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
       </select>
     </div>
 ";

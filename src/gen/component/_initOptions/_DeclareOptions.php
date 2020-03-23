@@ -3,33 +3,29 @@
 require_once("generate/GenerateEntity.php");
 require_once("class/controller/StructTools.php");
 
-class Gen_initOptions extends GenerateEntity {
+
+class Gen_declareOptions extends GenerateEntity {
+ 
 
   public function generate() {
     $this->entities = StructTools::getEntityRefBySubtypeSelectNoAdmin($this->entity);
     if(!count($this->entities)) return;
     $this->start();
-    $this->body();
     $this->end();
 
     return $this->string;
   }
 
-  protected function start() {
-    $this->string .= "  initOptions(): void {
-";
-  }
-
-  protected function body() {
+  public function start(){
     foreach($this->entities as $entity){
-      $this->string .= "    this.opt{$entity->getName('XxYy')}$ = this.dd.all('{$entity->getName()}', new Display);
+      $this->string .= "  opt{$entity->getName('XxYy')}$: Observable<Array<any>>;
 ";
     }
   }
 
-  protected function end() {
-    $this->string .= "  }
-
+  public function end(){
+    $this->string .= "
 ";
   }
+
 }

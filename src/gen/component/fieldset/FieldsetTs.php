@@ -14,6 +14,8 @@ class FieldsetTs extends GenerateFileEntity {
 
   protected function generateCode(){
     $this->start();
+    $this->declareOptions();
+    $this->constructor();
     $this->initOptions();
     $this->initData();
     $this->formGroup();
@@ -27,7 +29,7 @@ import { FieldsetComponent } from '@component/fieldset/fieldset.component';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { ValidatorsService } from '@service/validators/validators.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Display } from '@class/display';
 import { isEmptyObject } from '@function/is-empty-object.function';
@@ -40,7 +42,11 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
 
   readonly entityName: string = '" . $this->entity->getName() . "';
 
-  constructor(
+";
+  }
+
+  protected function constructor(){
+    $this->string .= "  constructor(
     protected fb: FormBuilder, 
     protected dd: DataDefinitionService, 
     protected validators: ValidatorsService) {
@@ -48,6 +54,12 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
   }
 
 ";
+  }
+
+  protected function declareOptions(){
+    require_once("gen/component/_initOptions/_DeclareOptions.php");
+    $gen = new Gen_declareOptions($this->entity);
+    $this->string .= $gen->generate();
   }
 
   protected function initOptions(){
