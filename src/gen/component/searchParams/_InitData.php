@@ -4,7 +4,11 @@ require_once("generate/GenerateEntity.php");
 
 
 class GenSearchParamsTs_initData extends GenerateEntity {
-
+/**
+ * Este metodo es similiar al initData utilizado en los formularios de administracion
+ * la diferencia es que en los formularios de administracion se inicializan los valores por defecto
+ * para los formularios de busqueda los valores por defecto son definidos directamente en el componente padre que es el que realiza la busqueda.
+ */
   protected $fields = [];
 
   public function generate() {

@@ -17,7 +17,12 @@ class FieldsetTs extends GenerateFileEntity {
     $this->declareOptions();
     $this->constructor();
     $this->initOptions();
-    $this->initData();
+    //$this->initData();
+    /**
+     * initData se utilizaba para inicializar principalmente los campos typeahead
+     * Se hizo una nueva reimplementacion de typeahead para inicializar directamente en el mismo componente
+     * se deja como referencia initData por si se necesita volver atras la nueva implementacion
+     */
     $this->formGroup();
     $this->getters();
     $this->end();
