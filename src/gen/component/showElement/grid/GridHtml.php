@@ -22,16 +22,18 @@ class GenGridHtml extends GenerateFileEntity {
     $this->string .= "
 <ng-template #loading>No se han encontrado registros...</ng-template>
 
-<div *ngIf=\"((data$ | async) && (data$ | async).length) ; else loading\" class=\"container\">
-  <div *ngFor=\"let row of (data$ | async); let i = index\" class=\"row align-items-center border\">
-    <div class=\"col-md-4\">
-      <h5 >{{row.id | label:'{$this->entity->getName()}'}}</h5>
+<div *ngIf=\"data$ | async as data; else loading\" class=\"container\">
+  <div *ngIf=\"data.length\"> 
+    <div *ngFor=\"let row of data; let i = index\" class=\"row align-items-center border\">
+      <div class=\"col-md-4\">
+        <h5 >{{row.id | label:'{$this->entity->getName()}'}}</h5>
 ";          
         
   }
 
   protected function end(){
-    $this->string .= "    </div>
+    $this->string .= "      </div>
+    </div>
   </div>
 </div>
 ";
@@ -76,8 +78,8 @@ class GenGridHtml extends GenerateFileEntity {
   }
 
   protected function newCol(){
-    $this->string .= "    </div>
-    <div class=\"col-md\">
+    $this->string .= "      </div>
+      <div class=\"col-md\">
 ";
   }
 
