@@ -67,7 +67,7 @@ class GenTableHtml extends GenerateFileEntity {
         }
       }
 
-     $this->string .= "        <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('" . implode("', '", $fieldsFkMain) . "')\">{$name}</button></th>
+     $this->string .= "        <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order(['" . implode("', '", $fieldsFkMain) . "'])\">{$name}</button></th>
 " ;
 
     }
