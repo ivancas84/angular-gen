@@ -22,17 +22,20 @@ class GenCardHtml extends GenerateFileEntity {
 
 
   protected function start(){
-    $this->string .= "<div *ngIf=\"data$ | async as data\" class=\"card\">
+    $this->string .= "<div class=\"container\">
+<div *ngIf=\"data$ | async as data\" class=\"card\">
   <div class=\"card-header\">
     {$this->entity->getName('Xx Yy')} {{data.id | label:\"{$this->entity->getName()}\"}}
   </div>
 
   <div class=\"card-body\">
-    <dl class=\"row\">
 ";
   }
 
   protected function nf(){
+    $this->string .= "    <dl class=\"row\">
+";
+
     foreach ($this->getEntity()->getFieldsNf() as $field) {
       if($field->isHidden()) continue; //se omiten los campos de agregacion
       
@@ -49,22 +52,46 @@ class GenCardHtml extends GenerateFileEntity {
 
 ";
     }
+
+    $this->string .= "    </dl>
+
+";
   }
 
   protected function fk(){
+    if(!count($this->getEntity()->getFieldsFk())) return;
+
+
     foreach ($this->getEntity()->getFieldsFk() as $field) {
-      if($field->isHidden()) continue; //se omiten los campos de agregacion
-      
-      $this->string .= "      <dt class=\"col-sm-3\">{$field->getName('Xx Yy')}</dt>
-      <dd class=\"col-sm-9\"><a [routerLink]=\"['/" . $field->getEntityRef()->getName("xx-yy") . "-detail']\" [queryParams]=\"{id:data." . $field->getName() . "}\" >{{data." . $field->getName() . " | label:'{$field->getEntityRef()->getName()}'}}</a></dd>
+      if($field->isHidden()) continue; //se omiten los campos de ocultos (agregacion y otros)
+
+      $fieldNameUpper = $field->getName("XxYy");
+      $fieldName = $field->getName();
+      $fieldNameAttribute = $field->getName("xxYy");
+      $fieldNameTitle = $field->getName('Xx Yy');
+      $componentName = $field->getEntityRef()->getName("xx-yy");
+      $entityName = $field->getEntityRef()->getName();
+
+      $this->string .= "    <ng-template #loading{$fieldNameUpper}>
+      <dl class=\"row\">
+        <dt class=\"col-sm-3\">{$fieldNameTitle}</dt>
+        <dd class=\"col-sm-9\">No se han encontrado registros</dd>
+      </dl>
+    </ng-template>
+
+    <dl class=\"row\" *ngIf=\"{$fieldNameAttribute}$ | async as {$fieldNameAttribute}; else loading{$fieldNameUpper}\">
+      <dt class=\"col-sm-3\">{$fieldNameTitle}</dt>
+      <dd class=\"col-sm-9\"><a [routerLink]=\"['/{$componentName}-detail']\" [queryParams]=\"{id:data.{$fieldName}}\" >{{{$fieldNameAttribute}.id | label:'{$entityName}'}}</a></dd>
+    </dl>
 
 ";
     }
+  
   }
 
   protected function end(){
-    $this->string .= "    </dl>
-  </div>
+    $this->string .= "  </div>
+</div>
 </div>
 ";
   }
@@ -97,7 +124,7 @@ class GenCardHtml extends GenerateFileEntity {
   }
 
   protected function checkbox(Field $field){
-    $this->string .= "{{data." . $field->getName() . " | SiNo}}";
+    $this->string .= "{{data." . $field->getName() . " | siNo}}";
   }
 
 
