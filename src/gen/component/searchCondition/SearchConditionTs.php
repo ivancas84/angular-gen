@@ -15,7 +15,12 @@ class Gen_SearchConditionTs extends GenerateFileEntity {
   protected function generateCode(){
     $this->start();
     $this->initOptions();
-    $this->initFilters();
+    //$this->initFilters();
+    /**
+     * initFilters se utilizaba para inicializar principalmente los campos typeahead
+     * Se hizo una nueva reimplementacion de typeahead para inicializar directamente en el mismo componente
+     * se deja como referencia initFilters por si se necesita volver atras la nueva implementacion
+     */
     $this->end();
   }
 

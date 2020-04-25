@@ -27,12 +27,14 @@ class GenTableHtml extends GenerateFileEntity {
 
   protected function start(){
     $this->string .= "
-    <ng-template #loading>No se han encontrado registros...</ng-template>
+<ng-template #loading>No se han encontrado registros...</ng-template>
 
-    <div *ngIf=\"((data$ | async) && (data$ | async).length); else loading\" class=\"table-responsive\">
-      <table class=\"table table-striped table-bordered table-hover\">
-        <thead>
-          <tr>
+<div *ngIf=\"data$ | async as data; else loading\" class=\"container\">
+
+<div *ngIf=\"data.length; else loading\" class=\"table-responsive\">
+  <table class=\"table table-striped table-bordered table-hover\">
+    <thead>
+      <tr>
 ";
   }
 
@@ -46,7 +48,7 @@ class GenTableHtml extends GenerateFileEntity {
       $name = $field->getName("Xx Yy");
       $sort = $field->getName();
 
-      $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order(['{$sort}'])\">{$name}</button></th>
+      $this->string .= "        <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order(['{$sort}'])\">{$name}</button></th>
 " ;
 
     }
@@ -65,22 +67,22 @@ class GenTableHtml extends GenerateFileEntity {
         }
       }
 
-     $this->string .= "            <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order('" . implode("', '", $fieldsFkMain) . "')\">{$name}</button></th>
+     $this->string .= "        <th><button type=\"button\" class=\"btn btn-link text-dark font-weight-bold\" (click)=\"order(['" . implode("', '", $fieldsFkMain) . "'])\">{$name}</button></th>
 " ;
 
     }
   }
 
   protected function headersOptions(){
-    $this->string .= "            <th>Opciones</th>
+    $this->string .= "        <th>Opciones</th>
   " ;
   }
 
   protected function body(){
-    $this->string .= "          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor=\"let row of (data$ | async); let i = index\">
+    $this->string .= "      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor=\"let row of data; let i = index\">
   ";
   }
 
@@ -90,7 +92,7 @@ class GenTableHtml extends GenerateFileEntity {
 
       foreach ($this->getEntity()->getFieldsNf() as $field) {
         if($field->isHidden()) continue; //se omiten los campos de agregacion
-        $this->string .= "            <td>" ;
+        $this->string .= "        <td>" ;
         switch($field->getSubtype()){
           case "checkbox": $this->checkbox($field); break;
           case "date": $this->date($field); break;
@@ -107,7 +109,7 @@ class GenTableHtml extends GenerateFileEntity {
 
     protected function valuesFk(){
       foreach($this->getEntity()->getFieldsFk() as $field){
-        $this->string .= "            <td>" ;
+        $this->string .= "        <td>" ;
         switch($field->getSubtype()){
           default: $this->string .= "<a [routerLink]=\"['/" . $field->getEntityRef()->getName("xx-yy") . "-show']\" [queryParams]=\"{id:row." . $field->getName() . "}\" >{{row." . $field->getName() . " | label:'{$field->getEntityRef()->getName()}'}}</a>" ;
         }
@@ -118,10 +120,12 @@ class GenTableHtml extends GenerateFileEntity {
 
 
   protected function end(){
-    $this->string .= "          </tr>
-        </tbody>
-      </table>
-    </div>
+    $this->string .= "      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
 ";
   }
 
@@ -139,7 +143,7 @@ class GenTableHtml extends GenerateFileEntity {
 
   protected function optionsRef(){
     foreach($this->getEntity()->getFieldsRef() as $field){
-      $this->string .= "              <a class=\"btn btn-info btn-sm\" [routerLink]=\"['/" . $field->getEntity()->getName("xx-yy") . "-show']\" [queryParams]=\"{" . $field->getName() . ":row.id}\">" . $field->getEntity()->getName("Xx Yy") . "</a>
+      $this->string .= "          <a class=\"btn btn-info btn-sm\" [routerLink]=\"['/" . $field->getEntity()->getName("xx-yy") . "-show']\" [queryParams]=\"{" . $field->getName() . ":row.id}\">" . $field->getEntity()->getName("Xx Yy") . "</a>
 ";
     }
 
@@ -147,15 +151,15 @@ class GenTableHtml extends GenerateFileEntity {
   }
 
   protected function options(){
-    $this->string .= "            <td>
-              <!-- a class=\"btn btn-info btn-sm\" [routerLink]=\"['/" . $this->getEntity()->getName("xx-yy") . "-detail']\" [queryParams]=\"{id:row.id}\" ><span class=\"oi oi-eye\" title=\"Detalle\"></span></a>    
-              <a class=\"btn btn-warning btn-sm\" [routerLink]=\"['/" . $this->getEntity()->getName("xx-yy") . "-admin']\" [queryParams]=\"{id:row.id}\" ><span class=\"oi oi-pencil\" title=\"Modificar\"></span></a>              
-              <!-- button class=\"btn btn-danger btn-sm\" type=\"button\" (click)=\"delete(i)\"><span class=\"oi oi-trash\" title=\"Eliminar\"></span></button -->
+    $this->string .= "        <td>
+          <!-- a class=\"btn btn-info btn-sm\" [routerLink]=\"['/" . $this->getEntity()->getName("xx-yy") . "-detail']\" [queryParams]=\"{id:row.id}\" ><span class=\"oi oi-eye\" title=\"Detalle\"></span></a>    
+          <a class=\"btn btn-warning btn-sm\" [routerLink]=\"['/" . $this->getEntity()->getName("xx-yy") . "-admin']\" [queryParams]=\"{id:row.id}\" ><span class=\"oi oi-pencil\" title=\"Modificar\"></span></a>              
+          <!-- button class=\"btn btn-danger btn-sm\" type=\"button\" (click)=\"delete(i)\"><span class=\"oi oi-trash\" title=\"Eliminar\"></span></button -->
 ";
 
     //$this->optionsRef();
 
-    $this->string .= "            </td>
+    $this->string .= "        </td>
 ";
   }
 
