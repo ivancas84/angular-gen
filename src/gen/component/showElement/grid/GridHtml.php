@@ -19,14 +19,15 @@ class GenGridHtml extends GenerateFileEntity {
     $this->end();
   }
   protected function start(){
-    $this->string .= "
-<ng-template #loading>No se han encontrado registros...</ng-template>
-
-<div *ngIf=\"data$ | async as data; else loading\" class=\"container\">
-  <div *ngIf=\"data.length\"> 
+    $this->string .= "<ng-template #empty>
+  <div>No se han encontrado registros.</div>
+</ng-template>
+  
+<div *ngIf=\"data$ | async as data; else empty\">
+  <div *ngIf=\"data && data.length\"> 
     <div *ngFor=\"let row of data; let i = index\" class=\"row align-items-center border\">
       <div class=\"col-md-4\">
-        <h5 >{{row.id | label:'{$this->entity->getName()}'}}</h5>
+        <h5>{{row.id | label:'{$this->entity->getName()}'}}</h5>
 ";          
         
   }
