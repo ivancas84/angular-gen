@@ -11,23 +11,19 @@ class Gen_SearchHtml extends GenerateFileEntity {
   }
 
   protected function generateCode(){
-    $this->string .= "<ngb-accordion #acc=\"ngbAccordion\">
-  <ngb-panel>
-    <ng-template ngbPanelTitle>
-      <span>Opciones</span>
-    </ng-template>
-    <ng-template ngbPanelContent>
-      <form [formGroup]=\"searchForm\" novalidate (ngSubmit)=\"onSubmit()\">       
-        <app-search-all [form]=\"searchForm\" [params$]=\"params$\"></app-search-all>
-        <!--app-{$this->entity->getName('xx-yy')}-search-params [form]=\"searchForm\" [params$]=\"params$\"></app-{$this->entity->getName('xx-yy')}-search-params-->
-        <!--app-{$this->entity->getName('xx-yy')}-search-condition [form]=\"searchForm\" [condition$]=\"condition$\"></app-{$this->entity->getName('xx-yy')}-search-condition-->
-        <div class=\"ml-5\">
-          <button type=\"submit\" class=\"btn btn-primary btn-sm\">Buscar <span class=\"oi oi-magnifying-glass\"></span></button>
-        </div>
-      </form>
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>    
+    $this->string .= "<div class=\"card\">
+  <div class=\"card-header\" (click)=\"optCard = !optCard\">Opciones</div>
+  <div class=\"card-body\" [hidden]=\"!optCard\">
+    <form [formGroup]=\"searchForm\" novalidate (ngSubmit)=\"onSubmit()\">       
+      <app-search-all [form]=\"searchForm\" [params$]=\"params$\"></app-search-all>
+      <!--app-{$this->entity->getName('xx-yy')}-search-params [form]=\"searchForm\" [params$]=\"params$\"></app-{$this->entity->getName('xx-yy')}-search-params-->
+      <!--app-{$this->entity->getName('xx-yy')}-search-condition [form]=\"searchForm\" [condition$]=\"condition$\"></app-{$this->entity->getName('xx-yy')}-search-condition-->
+      <div class=\"ml-5\">
+        <button type=\"submit\" class=\"btn btn-primary btn-sm\">Buscar <span class=\"oi oi-magnifying-glass\"></span></button>
+      </div>
+    </form>
+  </div>
+</div>
 ";
   }
 

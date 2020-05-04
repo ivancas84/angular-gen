@@ -21,6 +21,7 @@ import { SearchComponent } from '@component/search/search.component';
   templateUrl: './" . $this->entity->getName("xx-yy") . "-search.component.html',
 })
 export class " . $this->entity->getName("XxYy") . "SearchComponent extends SearchComponent {
+  
   readonly entityName = '" . $this->entity->getName() . "';
 
   constructor(protected fb: FormBuilder) {
