@@ -21,7 +21,7 @@ class Gen_AdminHtml extends GenerateFileEntity {
   <button type=\"button\" class=\"btn btn-secondary\" (click)=\"back()\"><span class=\"oi oi-arrow-thick-left\" title=\"Volver\"></span></button>
   <button type=\"button\" (click)=\"reset()\" class=\"btn btn-secondary\" ><span class=\"oi oi-reload\" title=\"Restablecer\"></span></button>
   <button type=\"button\" (click)=\"clear()\" class=\"btn btn-secondary\" ><span title=\"Nuevo\" class=\"oi oi-plus\"></span></button>
-  <button type=\"button\" class=\"btn btn-secondary\" [disabled]=\"deleteDisabled\" (click)=\"delete()\"><span class=\"oi oi-x\" title=\"Eliminar\"></span></button>
+  <button type=\"button\" class=\"btn btn-secondary\" [disabled]=\"isDeletable\" (click)=\"delete()\"><span class=\"oi oi-x\" title=\"Eliminar\"></span></button>
 
   <!--p>Debug Form value: {{ adminForm.value | json }}</p>
   <p>Debug Form status: {{ adminForm.status | json }}</p-->
