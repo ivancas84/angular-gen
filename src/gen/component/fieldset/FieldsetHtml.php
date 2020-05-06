@@ -236,7 +236,7 @@ class FieldsetHtml extends GenerateFileEntity {
     $this->string .= "  <div class=\"form-group row\">
     <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
     <div class=\"col-sm-10\">
-      <app-fieldset-typeahead [fieldset]=\"fieldset\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [fieldName]=\"'" . $field->getName() . "'\"></app-fieldset-typeahead>
+      <app-fieldset-typeahead [fieldName]=\"'" . $field->getName() . "'\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [fieldset]=\"fieldset\" [data$]=\"data$\"></app-fieldset-typeahead>
 ";
       $this->templateErrorStart($field);
       $this->templateErrorIsNotNull($field); 
