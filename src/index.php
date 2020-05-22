@@ -9,7 +9,7 @@ require_once("../config/config.php");
 require_once("class/model/entity/structure.php");
 require_once("class/tools/Filter.php");
 
-require_once("gen/service/data-definition-loader/DataDefinitionLoader.php");
+require_once("service/data-definition-loader/DataDefinitionLoader.php");
 
 $generate = Filter::get("gen");
 
@@ -60,112 +60,112 @@ function loader(array $structure) {
 }
 
 function dataDefinition(Entity $entity) {
-    require_once("gen/class/data-definition/_DataDefinition.php");
+    require_once("class/data-definition/_DataDefinition.php");
     $gen = new _ClassDataDefinition($entity);
     $gen->generate();
 
-    require_once("gen/class/data-definition/DataDefinition.php");
+    require_once("class/data-definition/DataDefinition.php");
     $gen = new ClassDataDefinition($entity);
     $gen->generateIfNotExists();
 }
 
 function show(Entity $entity) {
-    require_once("gen/component/show/ShowTs.php");
+    require_once("component/show/ShowTs.php");
     $gen = new Gen_ShowTs($entity);
     $gen->generate();
 
-    require_once("gen/component/show/ShowHtml.php");
+    require_once("component/show/ShowHtml.php");
     $gen = new Gen_ShowHtml($entity);
     $gen->generate();
 }
 
 function admin(Entity $entity) {
-    require_once("gen/component/admin/AdminTs.php");
+    require_once("component/admin/AdminTs.php");
     $gen = new Gen_AdminTs($entity);
     $gen->generate();
 
-    require_once("gen/component/admin/AdminHtml.php");
+    require_once("component/admin/AdminHtml.php");
     $gen = new Gen_AdminHtml($entity);
     $gen->generate();
 }
 
 function detail(Entity $entity) {
-    require_once("gen/component/detail/DetailTs.php");
+    require_once("component/detail/DetailTs.php");
     $gen = new Gen_DetailTs($entity);
     $gen->generate();
 
-    require_once("gen/component/detail/DetailHtml.php");
+    require_once("component/detail/DetailHtml.php");
     $gen = new Gen_DetailHtml($entity);
     $gen->generate();
 }
 
 function card(Entity $entity) {
-    require_once("gen/component/card/CardTs.php");
+    require_once("component/card/CardTs.php");
     $gen = new GenCardTs($entity);
     $gen->generate();
 
-    require_once("gen/component/card/CardHtml.php");
+    require_once("component/card/CardHtml.php");
     $gen = new GenCardHtml($entity);
     $gen->generate();
 }
 
 function fieldset(Entity $entity) {
-    require_once("gen/component/fieldset/FieldsetTs.php");
+    require_once("component/fieldset/FieldsetTs.php");
     $gen = new FieldsetTs($entity);
     $gen->generate();
 
-    require_once("gen/component/fieldset/FieldsetHtml.php");
+    require_once("component/fieldset/FieldsetHtml.php");
     $gen = new FieldsetHtml($entity);
     $gen->generate();
 }
 
 function table(Entity $entity) {
-    require_once("gen/component/showElement/table/TableTs.php");
+    require_once("component/showElement/table/TableTs.php");
     $gen = new GenTableTs($entity);
     $gen->generate();
 
-    require_once("gen/component/showElement/table/TableHtml.php");
+    require_once("component/showElement/table/TableHtml.php");
     $gen = new GenTableHtml($entity);
     $gen->generate();
 }
 
 function grid(Entity $entity) {
-    require_once("gen/component/showElement/grid/GridTs.php");
+    require_once("component/showElement/grid/GridTs.php");
     $gen = new GenGridTs($entity);
     $gen->generate();
 
-    require_once("gen/component/showElement/grid/GridHtml.php");
+    require_once("component/showElement/grid/GridHtml.php");
     $gen = new GenGridHtml($entity);
     $gen->generate();
 }
 
 function search(Entity $entity) {
-    require_once("gen/component/search/SearchTs.php");
+    require_once("component/search/SearchTs.php");
     $gen = new Gen_SearchTs($entity);
     $gen->generate();
 
-    require_once("gen/component/search/SearchHtml.php");
+    require_once("component/search/SearchHtml.php");
     $gen = new Gen_SearchHtml($entity);
     $gen->generate();
 }
 
 function searchCondition(Entity $entity) {
-    require_once("gen/component/searchCondition/SearchConditionTs.php");
+    require_once("component/searchCondition/SearchConditionTs.php");
     $gen = new Gen_SearchConditionTs($entity);
     $gen->generate();
 
-    require_once("gen/component/searchCondition/SearchConditionHtml.php");
+    require_once("component/searchCondition/SearchConditionHtml.php");
     $gen = new Gen_SearchConditionHtml($entity);
     $gen->generate();
 }
 
 
 function searchParams(Entity $entity) {
-    require_once("gen/component/searchParams/SearchParamsTs.php");
+    require_once("component/searchParams/SearchParamsTs.php");
     $gen = new Gen_SearchParamsTs($entity);
     $gen->generate();
 
-    require_once("gen/component/searchParams/SearchParamsHtml.php");
+    require_once("component/searchParams/SearchParamsHtml.php");
     $gen = new Gen_SearchParamsHtml($entity);
     $gen->generate();
 }
