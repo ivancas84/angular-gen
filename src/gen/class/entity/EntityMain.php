@@ -7,7 +7,7 @@ class TypescriptEntityMain extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-main.ts";
-    if(!$directorio) $directorio = PATH_GEN . "src/app/class/entity/{$entity->getName("xx-yy")}/";
+    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "src/app/class/entity/{$entity->getName("xx-yy")}/";
     parent::__construct($directorio, $file, $entity);
   }
 

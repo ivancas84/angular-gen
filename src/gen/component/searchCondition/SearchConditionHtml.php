@@ -6,7 +6,7 @@ class Gen_SearchConditionHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-search-condition.component.html";
-    if(!$directorio) $directorio = PATH_GEN . "tmp/component/search-condition/" . $entity->getName("xx-yy") . "-search-condition/";
+    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/search-condition/" . $entity->getName("xx-yy") . "-search-condition/";
     parent::__construct($directorio, $file, $entity);
   }
 

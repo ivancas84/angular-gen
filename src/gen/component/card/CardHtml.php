@@ -7,7 +7,7 @@ class GenCardHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-card.component.html";
-    if(!$directorio) $directorio = PATH_GEN . "tmp/component/card/" . $entity->getName("xx-yy") . "-card/";
+    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/card/" . $entity->getName("xx-yy") . "-card/";
     parent::__construct($directorio, $file, $entity);
   }
 

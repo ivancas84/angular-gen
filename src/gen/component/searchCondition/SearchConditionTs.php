@@ -6,7 +6,7 @@ class Gen_SearchConditionTs extends GenerateFileEntity {
 
 
   public function __construct(Entity $entity) {
-    $dir = PATH_GEN . "tmp/component/search-condition/" . $entity->getName("xx-yy") . "-search-condition/";
+    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/search-condition/" . $entity->getName("xx-yy") . "-search-condition/";
     $file = $entity->getName("xx-yy") . "-search-condition.component.ts";
     parent::__construct($dir, $file, $entity);
   }

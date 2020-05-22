@@ -8,7 +8,7 @@ class DataDefinitionLoaderService extends GenerateFile {
 
   public function __construct(array $structure){
     $this->structure = $structure;
-    parent::__construct(PATH_GEN."src/app/service/", "data-definition-loader.service.ts");
+    parent::__construct($_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/"."src/app/service/", "data-definition-loader.service.ts");
 
   }
 

@@ -5,7 +5,7 @@ require_once("generate/GenerateFileEntity.php");
 class GenGridTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
-    $dir = PATH_GEN . "tmp/component/grid/" . $entity->getName("xx-yy") . "-grid/";
+    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/grid/" . $entity->getName("xx-yy") . "-grid/";
     $file = $entity->getName("xx-yy") . "-grid.component.ts";
     parent::__construct($dir, $file, $entity);
   }

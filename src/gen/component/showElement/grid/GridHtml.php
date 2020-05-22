@@ -7,7 +7,7 @@ class GenGridHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-grid.component.html";
-    if(!$directorio) $directorio = PATH_GEN . "tmp/component/grid/" . $entity->getName("xx-yy") . "-grid/";
+    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/grid/" . $entity->getName("xx-yy") . "-grid/";
     parent::__construct($directorio, $file, $entity);
   }
 

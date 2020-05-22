@@ -5,7 +5,7 @@ require_once("generate/GenerateFileEntity.php");
 class ClassDataDefinition extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
-    $dir = PATH_GEN."src/app/class/data-definition/";
+    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/"."src/app/class/data-definition/";
     $file = $entity->getName("xx-yy") . "-data-definition.ts";
     parent::__construct($dir, $file, $entity);
   }

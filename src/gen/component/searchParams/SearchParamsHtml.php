@@ -6,7 +6,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null) {
     $file = $entity->getName("xx-yy") . "-search-params.component.html";
-    if(!$directorio) $directorio = PATH_GEN . "tmp/component/search-params/" . $entity->getName("xx-yy") . "-search-params/";
+    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/search-params/" . $entity->getName("xx-yy") . "-search-params/";
     parent::__construct($directorio, $file, $entity);
   }
 

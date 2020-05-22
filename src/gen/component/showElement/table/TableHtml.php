@@ -7,7 +7,7 @@ class GenTableHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
     $file = $entity->getName("xx-yy") . "-table.component.html";
-    if(!$directorio) $directorio = PATH_GEN . "tmp/component/table/" . $entity->getName("xx-yy") . "-table/";
+    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/table/" . $entity->getName("xx-yy") . "-table/";
     parent::__construct($directorio, $file, $entity);
   }
 

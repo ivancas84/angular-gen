@@ -8,7 +8,7 @@ class FieldsetTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
     $file = $entity->getName("xx-yy") . "-fieldset.component.ts";
-    $dir = PATH_GEN . "tmp/component/fieldset/" . $entity->getName("xx-yy") . "-fieldset/";
+    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/fieldset/" . $entity->getName("xx-yy") . "-fieldset/";
     parent::__construct($dir, $file, $entity);
   }
 

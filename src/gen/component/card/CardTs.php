@@ -5,7 +5,7 @@ require_once("generate/GenerateFileEntity.php");
 class GenCardTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
-    $dir = PATH_GEN . "tmp/component/card/" . $entity->getName("xx-yy") . "-card/";
+    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/card/" . $entity->getName("xx-yy") . "-card/";
     $file = $entity->getName("xx-yy") . "-card.component.ts";
     parent::__construct($dir, $file, $entity);
   }

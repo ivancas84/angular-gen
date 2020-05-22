@@ -5,7 +5,7 @@ require_once("generate/GenerateFileEntity.php");
 class Gen_SearchParamsTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
-    $dir = PATH_GEN . "tmp/component/search-params/" . $entity->getName("xx-yy") . "-search-params/";
+    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/search-params/" . $entity->getName("xx-yy") . "-search-params/";
     $file = $entity->getName("xx-yy") . "-search-params.component.ts";
     parent::__construct($dir, $file, $entity);
   }

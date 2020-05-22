@@ -5,7 +5,7 @@ require_once("generate/GenerateFileEntity.php");
 class Gen_DetailTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
-    $dir = PATH_GEN . "tmp/component/detail/" . $entity->getName("xx-yy") . "-detail/";
+    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_ROOT_SITE."/" . "tmp/component/detail/" . $entity->getName("xx-yy") . "-detail/";
     $file = $entity->getName("xx-yy") . "-detail.component.ts";
     parent::__construct($dir, $file, $entity);
   }
