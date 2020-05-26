@@ -1,6 +1,6 @@
 <?php
 
-require_once("generate/GenerateFileEntity.php");
+require_once("GenerateFileEntity.php");
 
 
 class TypescriptEntity extends GenerateFileEntity {
@@ -28,14 +28,14 @@ export class {$this->entity->getName('XxYy')} extends {$this->entity->getName('X
   }
 
   protected function properties(){
-    require_once("generate/angulariogen/class/entity/_Properties.php");
+    require_once("angulariogen/class/entity/_Properties.php");
     $gen = new TypescriptEntity_properties($this->entity);
     $this->string .= $gen->generate();
   }
 
 
   protected function initJson(){
-    require_once("generate/angulariogen/class/entity/_InitJson.php");
+    require_once("angulariogen/class/entity/_InitJson.php");
     $gen = new TypescriptEntity_initJson($this->entity);
     $this->string .= $gen->generate();
   }

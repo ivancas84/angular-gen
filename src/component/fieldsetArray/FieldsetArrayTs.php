@@ -1,6 +1,6 @@
 <?php
 
-require_once("generate/GenerateFileEntity.php");
+require_once("GenerateFileEntity.php");
 
 class ComponentFieldsetArrayTs extends GenerateFileEntity {
 
@@ -13,7 +13,7 @@ class ComponentFieldsetArrayTs extends GenerateFileEntity {
   }
 
   protected function formGroup(){
-    require_once("generate/angulariogen/component/fieldsetArray/_FormGroup.php");
+    require_once("angulariogen/component/fieldsetArray/_FormGroup.php");
     $gen = new ComponentFieldsetArrayTs_formGroup($this->entity);
     $this->string .= $gen->generate();
   }

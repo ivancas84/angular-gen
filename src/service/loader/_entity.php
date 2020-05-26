@@ -1,6 +1,6 @@
 <?php
 
-require_once("generate/GenerateFile.php");
+require_once("GenerateFile.php");
 
 class LoaderService_entity extends Generate {
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once("generate/GenerateEntity.php");
+require_once("GenerateEntity.php");
 
 
 class EntityDataDefinition_Imports extends GenerateEntity {

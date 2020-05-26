@@ -1,6 +1,6 @@
 <?php
 
-require_once("generate/GenerateEntity.php");
+require_once("GenerateEntity.php");
 
 
 class FieldsetTs_formGroup extends GenerateEntity {

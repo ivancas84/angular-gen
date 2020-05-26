@@ -1,6 +1,6 @@
 <?php
 
-require_once("generate/Generate.php");
+require_once("Generate.php");
 
 class DataDefinitionLoaderService_get extends Generate {
 

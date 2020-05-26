@@ -1,6 +1,6 @@
 <?php
 
-require_once("generate/GenerateFileEntity.php");
+require_once("GenerateFileEntity.php");
 
 class ClassDataDefinition extends GenerateFileEntity {
 

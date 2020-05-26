@@ -1,6 +1,6 @@
 <?php
 
-require_once("generate/GenerateFile.php");
+require_once("GenerateFile.php");
 
 class LoaderService extends GenerateFile {
 
@@ -50,13 +50,13 @@ export class LoaderService {
   }
 
   protected function dataDefinition(){
-    require_once("generate/angulariogen/service/loader/_dataDefinition.php");
+    require_once("angulariogen/service/loader/_dataDefinition.php");
     $gen = new LoaderService_dataDefinition($this->structure);
     $this->string .= $gen->generate();
   }
 
   protected function entity(){
-    require_once("generate/angulariogen/service/loader/_entity.php");
+    require_once("angulariogen/service/loader/_entity.php");
     $gen = new LoaderService_entity($this->structure);
     $this->string .= $gen->generate();
   }

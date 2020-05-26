@@ -32,17 +32,17 @@ class GenerateService {
     }
 
     protected function entityDataDefinition($entity){
-      require_once("generate/angulariogen/service/data-definition/entity-data-definition/EntityDataDefinitionMain.php");
+      require_once("angulariogen/service/data-definition/entity-data-definition/EntityDataDefinitionMain.php");
       $gen = new EntityDataDefinitionMain($entity);
       $gen->generate();
 
-      require_once("generate/angulariogen/service/data-definition/entity-data-definition/EntityDataDefinition.php");
+      require_once("angulariogen/service/data-definition/entity-data-definition/EntityDataDefinition.php");
       $gen = new EntityDataDefinition($entity);
       $gen->generateIfNotExists();
     }
 
     protected function loader($entity){
-      require_once("generate/angulariogen/service/loader/Loader.php");
+      require_once("angulariogen/service/loader/Loader.php");
       $gen = new LoaderService($entity);
       $gen->generate();
     }
@@ -50,40 +50,40 @@ class GenerateService {
 
 
   protected function componentGridSearch(){
-    require_once("generate/component/gridSearch/Template.php");
+    require_once("component/gridSearch/Template.php");
     $gen = new GridSearchTemplate($this->entity);
     $gen->generate();
   }
 
   protected function componentDetail(){
-    require_once("generate/component/detail/Template.php");
+    require_once("component/detail/Template.php");
     $gen = new DetailTemplate($this->entity);
     $gen->generate();
   }
 
 
   protected function componentAdminSimple(){
-    require_once("generate/component/AdminSimple/Controller.php");
+    require_once("component/AdminSimple/Controller.php");
     $gen = new AdminSimpleController($this->entity);
     $gen->generate();
 
-    require_once("generate/component/AdminSimple/Template.php");
+    require_once("component/AdminSimple/Template.php");
     $gen = new AdminSimpleTemplate($this->entity);
     $gen->generate();
   }
 
   protected function componentAdminModal(){
-    require_once("generate/component/AdminModalSimple/Controller.php");
+    require_once("component/AdminModalSimple/Controller.php");
     $gen = new AdminModalSimpleController($this->entity);
     $gen->generate();
 
-    require_once("generate/component/AdminModalSimple/Template.php");
+    require_once("component/AdminModalSimple/Template.php");
     $gen = new AdminModalSimpleTemplate($this->entity);
     $gen->generate();
   }
 
   protected function componentFieldsetFields(){
-    require_once("generate/component/fieldsetFields/Template.php");
+    require_once("component/fieldsetFields/Template.php");
     $gen = new FieldsetFieldsTemplate($this->entity);
     $gen->generate();
   }
@@ -93,7 +93,7 @@ class GenerateService {
 
 
   protected function componentFieldsetAdd(){
-    require_once("generate/component/fieldsetAdd/Template.php");
+    require_once("component/fieldsetAdd/Template.php");
     $gen = new FieldsetAddTemplate($this->entity);
     $gen->generate();
 
@@ -102,24 +102,24 @@ class GenerateService {
 
 
   protected function componentGridRows(){
-    require_once("generate/component/gridRows/Template.php");
+    require_once("component/gridRows/Template.php");
     $gen = new GridRowsRowTemplate($this->entity);
     $gen->generate();
   }
 
   protected function componentGrid(){
-    require_once("generate/component/Grid/Controller.php");
+    require_once("component/Grid/Controller.php");
     $gen = new GridController($this->entity);
     $gen->generate();
 
-    require_once("generate/component/Grid/Template.php");
+    require_once("component/Grid/Template.php");
     $gen = new GridTemplate($this->entity);
     $gen->generate();
   }
 
 
   protected function componentFieldsetRows(){
-    require_once("generate/component/fieldsetRows/Template.php");
+    require_once("component/fieldsetRows/Template.php");
     $gen = new FieldsetRowsTemplate($this->entity);
     $gen->generate();
   }
@@ -127,13 +127,13 @@ class GenerateService {
 
 
   protected function componentImportCsv(){
-    require_once("generate/component/importCsv/Controller.php");
+    require_once("component/importCsv/Controller.php");
     $gen = new ImportCsvController($this->entity);
     $gen->generate();
   }
 
   protected function componentImportText(){
-    require_once("generate/component/importText/Controller.php");
+    require_once("component/importText/Controller.php");
     $gen = new ImportTextController($this->entity);
     $gen->generate();
   }
@@ -143,32 +143,32 @@ class GenerateService {
 
 
   protected function sqlo(){
-    require_once("generate/phpdbgen/sqlo/core.php");
+    require_once("phpdbgen/sqlo/core.php");
     $gen = new ClassSqloMain($this->entity);
     $gen->generate();
 
-    require_once("generate/phpdbgen/sqlo/Sql.php");
+    require_once("phpdbgen/sqlo/Sql.php");
     $gen = new ClassSqlo($this->entity);
     $gen->generate();
   }
 
   protected function sql(){
-    require_once("generate/phpdbgen/sql/Sql.php");
+    require_once("phpdbgen/sql/Sql.php");
     $gen = new GenerateClassSql($this->entity);
     $gen->generate();
 
-    require_once("generate/phpdbgen/sql/core.php");
+    require_once("phpdbgen/sql/core.php");
     $gen = new GenerateClassSqlMain($this->entity);
     $gen->generate();
 
   }
 
   protected function values(){
-    require_once("generate/phpdbgen/values/core.php");
+    require_once("phpdbgen/values/core.php");
     $gen = new ClassValuesMain($this->entity);
     $gen->generate();
 
-    require_once("generate/phpdbgen/values/Imp.php");
+    require_once("phpdbgen/values/Imp.php");
     $gen = new ClassValuesImp($this->entity);
     $gen->generate();
 
@@ -179,25 +179,25 @@ class GenerateService {
   //***** OBSOLETO: REFACTORIZAR ******
 
   protected function fieldsetDetailHtml(){
-    require_once("generate/html/fieldset/Detail.php");
+    require_once("html/fieldset/Detail.php");
     $gen = new GenerateHtmlFieldsetDetail($this->entity);
     $gen->generate();
   }
 
   protected function fieldsetGridRowsHtml(){
-    require_once("generate/html/fieldset/UmDetail.php");
+    require_once("html/fieldset/UmDetail.php");
     $gen = new GenerateHtmlFieldsetGridRows($this->entity);
     $gen->generate();
   }
 
   protected function fieldsetDetailRowController(){
-    require_once("generate/angular/controller/fieldset/detailRow/Detail.php");
+    require_once("angular/controller/fieldset/detailRow/Detail.php");
     $gen = new GenerateControllerFieldsetDetail($this->entity);
     $gen->generate();
   }
 
   protected function fieldsetGridRowsRowController(){
-    require_once("generate/angular/controller/fieldset/umdetail/UmDetail.php");
+    require_once("angular/controller/fieldset/umdetail/UmDetail.php");
     $gen = new GenerateControllerFieldsetGridRows($this->entity);
     $gen->generate();
   }
