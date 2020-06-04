@@ -23,7 +23,10 @@ class EntityDataDefinition_Imports extends GenerateEntity {
  }
 
   protected function body(){
+    $imports = [];
     foreach($this->fields as $field) {
+        if(in_array($field->getEntityRef()->getName(), $imports)) continue;
+        array_push($imports, $field->getEntityRef()->getName()); 
         $this->string .= "import { " . $field->getEntityRef()->getName("XxYy") . "DataDefinition } from '@class/data-definition/" . $field->getEntityRef()->getName("xx-yy") . "-data-definition';
 ";        
       }

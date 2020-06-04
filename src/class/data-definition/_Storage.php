@@ -7,7 +7,9 @@ class EntityDataDefinition_Storage extends GenerateEntity {
 
   public function generate() {
     $this->start();
-    $this->recursive($this->getEntity());
+    $tablesVisited = [$this->entity->getName()];
+
+    $this->recursive($this->getEntity(), $tablesVisited);
     $this->end();
 
     return $this->string;
@@ -36,7 +38,7 @@ class EntityDataDefinition_Storage extends GenerateEntity {
     if(is_null($tablesVisited)) $tablesVisited = array();
 
     $this->fk($entity, $tablesVisited, $names);
-    $this->u_($entity, $tablesVisited, $names);
+    //$this->u_($entity, $tablesVisited, $names);
 
 
      if (!empty($names)) $this->fields($entity->getName(), $names);
@@ -64,16 +66,6 @@ class EntityDataDefinition_Storage extends GenerateEntity {
     }
 ";
 
-    /*
-    for($i =0; $i < count($names) -1 ; $i++) $row .= "['{$names[$i]}']";
-    $row_ = $row . "['{$key}']";
-
-
-    $this->string .= "    if(('{$key}' in {$row}) && ({$row_}.id !=  'undefined')){
-      this.stg.setItem('{$tableName}' + {$row_}.id, {$row_});
-      delete {$row_};
-    }
-";*/
   }
 
   protected function fk(Entity $entity, array $tablesVisited, array $names){

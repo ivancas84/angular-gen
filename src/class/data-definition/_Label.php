@@ -64,6 +64,7 @@ class EntityDataDefinition_Label extends GenerateEntity {
         
     $fields = $this->fields["fk"];
 
+
     foreach($fields as $field) {
       switch ( $field->getSubtype() ) {
         case "select": case "typeahead":
