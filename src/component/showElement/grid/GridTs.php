@@ -13,13 +13,19 @@ class GenGridTs extends GenerateFileEntity {
   protected function generateCode(){
     $this->string .= "import { Component } from '@angular/core';
 import { ShowElementComponent } from '@component/show-element/show-element.component';
+import { Router } from '@angular/router';
     
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-grid',
   templateUrl: './" . $this->entity->getName("xx-yy") . "-grid.component.html',
 })
-export class " . $this->entity->getName("XxYy") . "GridComponent extends ShowElementComponent { }
+export class " . $this->entity->getName("XxYy") . "GridComponent extends ShowElementComponent { 
+ 
+  constructor(protected router: Router) { 
+    super(router);
+  }
 
+}
 ";
   }
 }

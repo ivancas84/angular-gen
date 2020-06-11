@@ -13,12 +13,19 @@ class GenTableTs extends GenerateFileEntity {
   protected function generateCode(){
     $this->string .= "import { Component } from '@angular/core';
 import { ShowElementComponent } from '@component/show-element/show-element.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-table',
   templateUrl: './" . $this->entity->getName("xx-yy") . "-table.component.html',
 })
-export class " . $this->entity->getName("XxYy") . "TableComponent extends ShowElementComponent { }
+export class " . $this->entity->getName("XxYy") . "TableComponent extends ShowElementComponent { 
+  
+  constructor(protected router: Router) { 
+    super(router);
+  }
+
+}
 ";
   }
 

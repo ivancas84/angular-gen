@@ -15,7 +15,6 @@ class Gen_SearchTs extends GenerateFileEntity {
     $this->string .= "import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { SearchComponent } from '@component/search/search.component';
 
 @Component({
