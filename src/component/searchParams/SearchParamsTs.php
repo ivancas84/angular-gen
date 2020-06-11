@@ -50,11 +50,10 @@ export class " . $this->entity->getName("XxYy") . "SearchParamsComponent extends
   }
 
   public function constructor(){
-    $this->string .= "  constructor(
+    $this->string .= "  constructor (
     protected fb: FormBuilder, 
-    protected dd: DataDefinitionService, 
-    protected validators: ValidatorsService) 
-  { super(fb, dd, validators); }
+    protected dd: DataDefinitionService
+  ) { super(fb); }
 
 ";
   }
