@@ -5,8 +5,11 @@ require_once("class/controller/StructTools.php");
 
 class Gen_initOptions extends GenerateEntity {
 
-  public function generate() {
-    $this->entities = StructTools::getEntityRefBySubtypeSelectNoAdmin($this->entity);
+  public function generate($entities = NULL) {
+    switch($entities){
+      case "unique_multiple": $this->entities = StructTools::getEntityRefBySubtypeSelectUniqueMultiple($this->entity); break;
+      default: $this->entities = StructTools::getEntityRefBySubtypeSelect($this->entity); break;
+    }
     if(!count($this->entities)) return;
     $this->start();
     $this->body();
