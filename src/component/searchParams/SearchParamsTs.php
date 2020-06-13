@@ -34,14 +34,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { SearchParamsComponent } from '@component/search-params/search-params.component';
 import { Observable } from 'rxjs';
-import { Display } from '@class/display';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-search-params',
   templateUrl: './" . $this->entity->getName("xx-yy") . "-search-params.component.html',
 })
 export class " . $this->entity->getName("XxYy") . "SearchParamsComponent extends SearchParamsComponent {
-  readonly entityName = '" . $this->entity->getName() . "';
 
 ";
   }
