@@ -33,7 +33,7 @@ foreach($structure as $entity) {
         case "search": search($entity); break;
         case "search-condition": searchCondition($entity); break;
         case "search-params": searchParams($entity); break;
-
+        case "form-pick": formPick($entity); break;
         
         case null:
             //services
@@ -168,4 +168,10 @@ function searchParams(Entity $entity) {
     require_once("component/searchParams/SearchParamsHtml.php");
     $gen = new Gen_SearchParamsHtml($entity);
     $gen->generate();
+}
+
+function formPick(Entity $entity){
+  require_once("component/formPick/FormPickTs.php");
+  $gen = new GenFormPickTs($entity);
+  $gen->generate();
 }
