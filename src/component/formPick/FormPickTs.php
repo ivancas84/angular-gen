@@ -68,7 +68,7 @@ export class " . $this->entity->getName("XxYy") . "FormPickComponent extends For
 
   protected function getters(){
     foreach($this->entity->getFieldsUniqueMultiple() as $field){
-      $this->string .= "  get {$field->getName('xxYy')}() { return this.fieldset.get('{$field->getName()}')}
+      $this->string .= "  get {$field->getName('xxYy')}() { return this.form.get('{$field->getName()}')}
 ";
     }
     $this->string .= "
