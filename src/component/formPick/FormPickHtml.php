@@ -80,7 +80,7 @@ class GenFormPickHtml extends GenerateFileEntity {
       </div>
 ";
       $this->templateErrorStart($field);
-      //$this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field); 
       $this->templateErrorDate($field);
       $this->templateErrorEnd($field);
@@ -95,7 +95,7 @@ class GenFormPickHtml extends GenerateFileEntity {
     <ngb-timepicker class=\"form-control\" placeholder=\"hh:mm\" formControlName=\"" . $field->getName() . "\" [spinners]=\"false\" [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></ngb-timepicker>
 ";
       $this->templateErrorStart($field);
-      //$this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field); 
       //$this->templateErrorDate($field);
       $this->templateErrorEnd($field);
@@ -131,7 +131,7 @@ class GenFormPickHtml extends GenerateFileEntity {
     <input class=\"form-control\" placeholder=\"yyyy\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
       $this->templateErrorStart($field);
-      //$this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsNotNull($field); 
       $this->templateErrorYear($field); 
       //$this->templateErrorIsUnique($field); 
       $this->templateErrorEnd($field);    
@@ -147,7 +147,7 @@ class GenFormPickHtml extends GenerateFileEntity {
     <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
       $this->templateErrorStart($field);
-      //$this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field); 
       $this->templateErrorEnd($field);    
       $this->string .= "  </div>
@@ -162,7 +162,7 @@ class GenFormPickHtml extends GenerateFileEntity {
     <textarea class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></textarea>
 ";
       $this->templateErrorStart($field);
-      //$this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field); 
       $this->templateErrorEnd($field);    
       $this->string .= "  </div>
@@ -195,7 +195,7 @@ class GenFormPickHtml extends GenerateFileEntity {
     $this->string .= "    </select>
 ";
     $this->templateErrorStart($field);
-    //$this->templateErrorIsNotNull($field); 
+    $this->templateErrorIsNotNull($field); 
     //$this->templateErrorIsUnique($field);
     $this->templateErrorEnd($field);
     $this->string .= "  </div>
@@ -213,7 +213,7 @@ class GenFormPickHtml extends GenerateFileEntity {
     </select>
 ";
     $this->templateErrorStart($field);
-    //$this->templateErrorIsNotNull($field); 
+    $this->templateErrorIsNotNull($field); 
     //$this->templateErrorIsUnique($field);
     $this->templateErrorEnd($field);
     $this->string .= "  </div>
@@ -226,9 +226,8 @@ class GenFormPickHtml extends GenerateFileEntity {
     <app-typeahead [field]=\"" . $field->getName("xYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
 ";
       $this->templateErrorStart($field);
-      //$this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field);
-      $this->templateErrorTypeahead($field);
       $this->templateErrorEnd($field);
       
       $this->string .= "  </div>
@@ -247,57 +246,53 @@ class GenFormPickHtml extends GenerateFileEntity {
   }
 
   protected function templateErrorStart(Field $field){
-    $this->string .= "      <div class=\"text-danger\" *ngIf=\"({$field->getName("xxYy")}.touched || {$field->getName("xxYy")}.dirty) && {$field->getName("xxYy")}.invalid\">
+    $this->string .= "    <div class=\"text-danger\" *ngIf=\"({$field->getName("xxYy")}.touched || {$field->getName("xxYy")}.dirty) && {$field->getName("xxYy")}.invalid\">
 ";
   }
 
   protected function templateErrorEnd(Field $field){
-    $this->string .= "      </div>
+    $this->string .= "    </div>
 ";
   }
 
   protected function templateErrorIsNotNull(Field $field){
-    if($field->isNotNull()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.required\">Debe completar valor</div>
+    if($field->isNotNull()) $this->string .= "      <div *ngIf=\"{$field->getName("xxYy")}.errors.required\">Debe completar valor</div>
 ";
   }
 
   protected function templateErrorIsUnique(Field $field){
-    if($field->isUnique()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$field->getEntity()->getName("xx-yy")}-admin\" [queryParams]=\"{'{$field->getName()}':{$field->getName('xxYy')}.value}\">Cargar</a></div>
+    if($field->isUnique()) $this->string .= "      <div *ngIf=\"{$field->getName("xxYy")}.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$field->getEntity()->getName("xx-yy")}-admin\" [queryParams]=\"{'{$field->getName()}':{$field->getName('xxYy')}.value}\">Cargar</a></div>
 ";
   }
 
 
   protected function templateErrorEmail(Field $field) {
-    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.email\">Debe ser un email válido</div>
+    $this->string .= "      <div *ngIf=\"{$field->getName("xxYy")}.errors.email\">Debe ser un email válido</div>
 ";
   }
 
 
   protected function templateErrorYear(Field $field) {
-    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.nonNumeric\">Ingrese sólo números</div>
-        <div *ngIf=\"{$field->getName("xxYy")}.errors.notYear\">No es un año válido</div>    
+    $this->string .= "      <div *ngIf=\"{$field->getName("xxYy")}.errors.nonNumeric\">Ingrese sólo números</div>
+      <div *ngIf=\"{$field->getName("xxYy")}.errors.notYear\">No es un año válido</div>    
 ";
-    if($field->getMinLength()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.minYear\">Valor no permitido</div>
+    if($field->getMinLength()) $this->string .= "      <div *ngIf=\"{$field->getName("xxYy")}.errors.minYear\">Valor no permitido</div>
 ";
-    if($field->getLength()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.maxYear\">Valor no permitido</div>
+    if($field->getLength()) $this->string .= "      <div *ngIf=\"{$field->getName("xxYy")}.errors.maxYear\">Valor no permitido</div>
 ";    
   }
 
 
-  protected function templateErrorTypeahead(Field $field) {
-    $this->string .= "        <div *ngIf=\"({$field->getName("xxYy")}.touched && {$field->getName("xxYy")}.errors.unselected)\">Valor no seleccionado</div>
-";
-  }
 
   protected function templateErrorDate(Field $field) {
-    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.ngbDate\">Ingrese una fecha válida</div>
+    $this->string .= "      <div *ngIf=\"{$field->getName("xxYy")}.errors.ngbDate\">Ingrese una fecha válida</div>
 ";
   }
 
   protected function templateErrorDni(Field $field) {
-    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.pattern\">Ingrese solo números</div>
-        <div *ngIf=\"{$field->getName("xxYy")}.errors.minlength\">Longitud incorrecta</div>
-        <div *ngIf=\"{$field->getName("xxYy")}.errors.maxlength\">Longitud incorrecta</div>
+    $this->string .= "      <div *ngIf=\"{$field->getName("xxYy")}.errors.pattern\">Ingrese solo números</div>
+      <div *ngIf=\"{$field->getName("xxYy")}.errors.minlength\">Longitud incorrecta</div>
+      <div *ngIf=\"{$field->getName("xxYy")}.errors.maxlength\">Longitud incorrecta</div>
 ";
   }
 

@@ -117,7 +117,7 @@ class GenFormPick_formGroup extends GenerateEntity {
 
   protected function defecto(Field $field) {
     $validators = [];
-    //if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
     //if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
@@ -130,13 +130,13 @@ class GenFormPick_formGroup extends GenerateEntity {
 
   protected function year(Field $field) {
     $validators = [];
-    //if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));    
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));    
     if($field->getLength()) array_push($validators, "this.validators.maxYear('" . $field->getLength() . "')");
     if($field->getMinLength()) array_push($validators, "this.validators.minYear('" . $field->getMinLength() . "')");
     array_push($validators, "this.validators.year()");
     
     $asyncValidators = [];
-    //if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
 
     $this->formControlStart($field);
     $this->formControlValidators($validators);
@@ -147,10 +147,10 @@ class GenFormPick_formGroup extends GenerateEntity {
   protected function email(Field $field) {
     $validators = [];
     array_push($validators, "Validators.email");
-    //if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
-    //if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
 
     $this->formControlStart($field);
     $this->formControlValidators($validators);
@@ -160,7 +160,7 @@ class GenFormPick_formGroup extends GenerateEntity {
 
   protected function dni(Field $field) {
     $validators = array("Validators.minLength(7)", "Validators.maxLength(9)", "Validators.pattern('^[0-9]*$')");
-    //if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
     if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
@@ -173,7 +173,7 @@ class GenFormPick_formGroup extends GenerateEntity {
 
   protected function typeahead(Field $field) {
     $validators = ["this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')"];
-    //if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
     //if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
