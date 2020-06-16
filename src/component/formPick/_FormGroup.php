@@ -19,7 +19,6 @@ class GenFormPick_formGroup extends GenerateEntity {
   protected function start() {
     $this->string .= "  formGroup(): void {
     this.form = this.fb.group({
-      id:null,
 ";
   }
 
