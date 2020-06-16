@@ -133,7 +133,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
   protected function typeahead(Field $field) {
     $this->string .= "    <div class=\"form-group mb-2\">
       <label class=\"col-form-label\">" . $field->getName("Xx Yy") . "</label>
-      <app-typeahead [field]=\"" . $field->getName() . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
+      <app-typeahead [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
     </div>
 ";
   }

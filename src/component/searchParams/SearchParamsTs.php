@@ -31,9 +31,10 @@ class Gen_SearchParamsTs extends GenerateFileEntity {
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Display } from '@class/display';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { SearchParamsComponent } from '@component/search-params/search-params.component';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-search-params',
