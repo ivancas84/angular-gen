@@ -17,8 +17,8 @@ class GenFormPick_formGroup extends GenerateEntity {
 
 
   protected function start() {
-    $this->string .= "  formGroup(): FormGroup {
-    let fg: FormGroup = this.fb.group({
+    $this->string .= "  formGroup(): void {
+    this.form = this.fb.group({
       id:null,
 ";
   }
@@ -63,7 +63,6 @@ class GenFormPick_formGroup extends GenerateEntity {
 
   protected function end() {
     $this->string .= "    });
-    return fg;
   }
 
 ";

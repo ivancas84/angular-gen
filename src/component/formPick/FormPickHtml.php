@@ -79,11 +79,11 @@ class GenFormPickHtml extends GenerateFileEntity {
         </div>
       </div>
 ";
-      $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
+      //$this->templateErrorStart($field);
+      //$this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field); 
-      $this->templateErrorDate($field);
-      $this->templateErrorEnd($field);
+      //$this->templateErrorDate($field);
+      //$this->templateErrorEnd($field);
 
       $this->string .= "  </div>
 ";
@@ -94,11 +94,11 @@ class GenFormPickHtml extends GenerateFileEntity {
     <label>{$field->getName('Xx yy')}</label>
     <ngb-timepicker class=\"form-control\" placeholder=\"hh:mm\" formControlName=\"" . $field->getName() . "\" [spinners]=\"false\" [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></ngb-timepicker>
 ";
-      $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
+      //$this->templateErrorStart($field);
+      //$this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field); 
       //$this->templateErrorDate($field);
-      $this->templateErrorEnd($field);
+      //$this->templateErrorEnd($field);
 
       $this->string .= "  </div>
 ";
@@ -130,11 +130,11 @@ class GenFormPickHtml extends GenerateFileEntity {
     <label>" . $field->getName("Xx yy") . "</label>
     <input class=\"form-control\" placeholder=\"yyyy\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
-      $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorYear($field); 
+      //$this->templateErrorStart($field);
+      //$this->templateErrorIsNotNull($field); 
+      //$this->templateErrorYear($field); 
       //$this->templateErrorIsUnique($field); 
-      $this->templateErrorEnd($field);    
+      //$this->templateErrorEnd($field);    
       $this->string .= "  </div>
 ";
   }
@@ -146,10 +146,10 @@ class GenFormPickHtml extends GenerateFileEntity {
     <label>" . $field->getName("Xx yy") . "</label>
     <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
-      $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
+      //$this->templateErrorStart($field);
+      //$this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field); 
-      $this->templateErrorEnd($field);    
+      //$this->templateErrorEnd($field);    
       $this->string .= "  </div>
 ";
   }
@@ -176,8 +176,8 @@ class GenFormPickHtml extends GenerateFileEntity {
       <input class=\"form-check-input\" type=\"checkbox\" formControlName=\"{$field->getName()}\"> {$field->getName()}
     </label>
 ";
-    $this->templateErrorStart($field);
-    $this->templateErrorEnd($field);
+    //$this->templateErrorStart($field);
+    //$this->templateErrorEnd($field);
     $this->string .= "  </div>
 ";
   }
@@ -194,10 +194,10 @@ class GenFormPickHtml extends GenerateFileEntity {
 
     $this->string .= "    </select>
 ";
-    $this->templateErrorStart($field);
-    $this->templateErrorIsNotNull($field); 
+    //$this->templateErrorStart($field);
+    //$this->templateErrorIsNotNull($field); 
     //$this->templateErrorIsUnique($field);
-    $this->templateErrorEnd($field);
+    //$this->templateErrorEnd($field);
     $this->string .= "  </div>
 ";
 
@@ -212,10 +212,10 @@ class GenFormPickHtml extends GenerateFileEntity {
       <option *ngFor=\"let option of (opt" . $field->getEntityRef()->getName('XxYy') . "\$ | async)\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
     </select>
 ";
-    $this->templateErrorStart($field);
-    $this->templateErrorIsNotNull($field); 
+    //$this->templateErrorStart($field);
+    //$this->templateErrorIsNotNull($field); 
     //$this->templateErrorIsUnique($field);
-    $this->templateErrorEnd($field);
+    //$this->templateErrorEnd($field);
     $this->string .= "  </div>
 ";
   }
@@ -225,10 +225,10 @@ class GenFormPickHtml extends GenerateFileEntity {
     <label>" . $field->getName("Xx Yy") . "</label>
     <app-typeahead [field]=\"" . $field->getName("xYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
 ";
-      $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
+      //$this->templateErrorStart($field);
+      //$this->templateErrorIsNotNull($field); 
       //$this->templateErrorIsUnique($field);
-      $this->templateErrorEnd($field);
+      //$this->templateErrorEnd($field);
       
       $this->string .= "  </div>
 ";
