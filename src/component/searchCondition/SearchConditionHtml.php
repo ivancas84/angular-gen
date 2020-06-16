@@ -71,7 +71,7 @@ class Gen_SearchConditionHtml extends GenerateFileEntity {
 
 
   protected function optionsStart(){
-    $this->string .= "      <div class=\"col-xs-2\" [ngSwitch]=\"f(i)\" >   
+    $this->string .= "      <div class=\"col-xs-2\" [ngSwitch]=\"f(i).value\" >   
         <!-- todos -->
         <select *ngSwitchCase=\"'_search'\" class=\"form-control form-control-sm\" formControlName=\"option\">
           <option value=\"=~\">&cong;</option>
@@ -129,7 +129,7 @@ class Gen_SearchConditionHtml extends GenerateFileEntity {
 
 
   protected function switchStart(){
-    $this->string .= "      <div class=\"col-xs-4\" [ngSwitch]=\"f(i)\" >
+    $this->string .= "      <div class=\"col-xs-4\" [ngSwitch]=\"f(i).value\" >
         <!-- todos -->
         <input *ngSwitchCase=\"'_search'\" class=\"form-control form-control-sm\" formControlName=\"value\">
 
@@ -230,7 +230,7 @@ class Gen_SearchConditionHtml extends GenerateFileEntity {
 
   <div *ngIf=\"(filters.controls.length == 0)\" class=\"form-row\">
     <div class=\"col\">
-      <button type=\"submit\" class=\"btn btn-primary btn-sm\"><span class=\"oi oi-magnifying-glass\"></span></button>
+      <button type=\"button\" class=\"btn btn-info btn-sm\" (click)=\"addFilter()\"><span class=\"oi oi-layers\"></span></button>
     </div>
   </div>
 </fieldset>
