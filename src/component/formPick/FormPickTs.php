@@ -25,20 +25,18 @@ class GenFormPickTs extends GenerateFileEntity {
 
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
-import { FormPick } from '@component/form-pick/form-pick.component';
+import { FormPickComponent } from '@component/form-pick/form-pick.component';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { ValidatorsService } from '@service/validators/validators.service';
-import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Display } from '@class/display';
-import { isEmptyObject } from '@function/is-empty-object.function';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-form-pick',
   templateUrl: './" . $this->entity->getName("xx-yy") . "-form-pick.component.html',
 })
-export class " . $this->entity->getName("XxYy") . "FormPick extends FormPickComponent {
+export class " . $this->entity->getName("XxYy") . "FormPickComponent extends FormPickComponent {
 
   readonly entityName: string = '" . $this->entity->getName() . "';
 

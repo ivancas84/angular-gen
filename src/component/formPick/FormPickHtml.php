@@ -5,13 +5,14 @@ require_once("GenerateFileEntity.php");
 class GenFormPickHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null) {
-    $file = $entity->getName("xx-yy") . "-fieldset.component.html";
-    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/fieldset/" . $entity->getName("xx-yy") . "-fieldset/";
+    $file = $entity->getName("xx-yy") . "-form-pick.component.html";
+    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/form-pick/" . $entity->getName("xx-yy") . "-form-pick/";
     parent::__construct($directorio, $file, $entity);
   }
 
 
   public function generateCode() {
+    if(!$this->entity->getFieldsUniqueMultiple()) return "";
     $this->start();
     $this->nf();
     $this->fk();
@@ -19,7 +20,7 @@ class GenFormPickHtml extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "<fieldset [formGroup]=\"fieldset\">
+    $this->string .= "<form [formGroup]=\"form\"><div class=\"form-row\">
 ";
   }
 
@@ -28,7 +29,7 @@ class GenFormPickHtml extends GenerateFileEntity {
     $fields = $this->getEntity()->getFieldsNf();
 
     foreach($fields as $field) {
-      if(!$field->isAdmin()) continue;
+      if(!$field->isUniqueMultiple()) continue;
       switch ( $field->getSubtype() ) {
         case "checkbox": $this->checkbox($field); break;
         case "date": $this->date($field);  break;
@@ -52,7 +53,7 @@ class GenFormPickHtml extends GenerateFileEntity {
     $fields = $this->getEntity()->getFieldsFk();
 
     foreach($fields as $field){
-      if(!$field->isAdmin()) continue;
+      if(!$field->isUniqueMultiple()) continue;
       switch($field->getSubtype()) {
         case "select": $this->select($field); break;
         case "typeahead": $this->typeahead($field); break;
@@ -64,9 +65,8 @@ class GenFormPickHtml extends GenerateFileEntity {
 
 
   protected function date(Field $field) {
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
-    <div class=\"col-sm-10\">
+    $this->string .= "  <div class=\"form-group col-sm\">
+    <label>{$field->getName('Xx yy')}</label>
       <div class=\"input-group\">
         <input class=\"form-control\" placeholder=\"dd/mm/yyyy\" ngbDatepicker #" . $field->getName("xxYy") . "_=\"ngbDatepicker\" formControlName=\"{$field->getName()}\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
         <div class=\"input-group-append\">
@@ -80,32 +80,30 @@ class GenFormPickHtml extends GenerateFileEntity {
       </div>
 ";
       $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
+      //$this->templateErrorIsNotNull($field); 
+      //$this->templateErrorIsUnique($field); 
       $this->templateErrorDate($field);
       $this->templateErrorEnd($field);
 
-      $this->string .= "    </div>
-  </div>
+      $this->string .= "  </div>
 ";
   }
 
   protected function time(Field $field) {
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
-    <div class=\"col-sm-10\">
-      <ngb-timepicker  placeholder=\"hh:mm\" formControlName=\"" . $field->getName() . "\" [spinners]=\"false\" [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></ngb-timepicker>
+    $this->string .= "  <div class=\"form-group col-sm\">
+    <label>{$field->getName('Xx yy')}</label>
+    <ngb-timepicker class=\"form-control\" placeholder=\"hh:mm\" formControlName=\"" . $field->getName() . "\" [spinners]=\"false\" [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></ngb-timepicker>
 ";
       $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
+      //$this->templateErrorIsNotNull($field); 
+      //$this->templateErrorIsUnique($field); 
       //$this->templateErrorDate($field);
       $this->templateErrorEnd($field);
 
-      $this->string .= "    </div>
-  </div>
+      $this->string .= "  </div>
 ";
   }
+
   protected function timestamp(Field $field) {
     $this->string .= "  <div class=\"form-group form-row\">
     <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
@@ -128,58 +126,52 @@ class GenFormPickHtml extends GenerateFileEntity {
 
   protected function year(Field $field) {
 
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
-    <div class=\"col-sm-10\">
-      <input class=\"form-control\" placeholder=\"yyyy\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
+    $this->string .= "  <div class=\"form-group col-sm\">
+    <label>" . $field->getName("Xx yy") . "</label>
+    <input class=\"form-control\" placeholder=\"yyyy\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
       $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
+      //$this->templateErrorIsNotNull($field); 
       $this->templateErrorYear($field); 
-      $this->templateErrorIsUnique($field); 
+      //$this->templateErrorIsUnique($field); 
       $this->templateErrorEnd($field);    
-      $this->string .= "    </div>
-  </div>
+      $this->string .= "  </div>
 ";
   }
 
 
   protected function defecto(Field $field) {
 
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
-    <div class=\"col-sm-10\">
-      <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
+    $this->string .= "  <div class=\"form-group col-sm\">
+    <label>" . $field->getName("Xx yy") . "</label>
+    <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
       $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
+      //$this->templateErrorIsNotNull($field); 
+      //$this->templateErrorIsUnique($field); 
       $this->templateErrorEnd($field);    
-      $this->string .= "    </div>
-  </div>
+      $this->string .= "  </div>
 ";
   }
 
 
   protected function textarea(Field $field) {
 
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
-    <div class=\"col-sm-10\">
-      <textarea class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></textarea>
+    $this->string .= "  <div class=\"form-group col-sm\">
+    <label>" . $field->getName("Xx yy") . "</label>
+    <textarea class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></textarea>
 ";
       $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
+      //$this->templateErrorIsNotNull($field); 
+      //$this->templateErrorIsUnique($field); 
       $this->templateErrorEnd($field);    
-      $this->string .= "    </div>
-  </div>
+      $this->string .= "  </div>
 ";
   }
 
 
   protected function checkbox(Field $field) {
-    $this->string .= "  <div class=\"form-group form-check\">
+    $this->string .= "  <div class=\"form-group form-check col-sm\">
     <label class=\"form-check-label\">
       <input class=\"form-check-input\" type=\"checkbox\" formControlName=\"{$field->getName()}\"> {$field->getName()}
     </label>
@@ -191,72 +183,66 @@ class GenFormPickHtml extends GenerateFileEntity {
   }
 
   protected function selectValues(Field $field){
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . ":</label>
-    <div class=\"col-sm-10\">
-      <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
-        <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
+    $this->string .= "  <div class=\"form-group col-sm\">
+    <label>" . $field->getName("Xx Yy") . ":</label>
+    <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
+      <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
 " ;
 
-    foreach($field->getSelectValues() as $value) $this->string .= "            <option value=\"" . $value . "\">" . $value . "</option>
+    foreach($field->getSelectValues() as $value) $this->string .= "          <option value=\"" . $value . "\">" . $value . "</option>
 ";
 
-    $this->string .= "      </select>
+    $this->string .= "    </select>
 ";
     $this->templateErrorStart($field);
-    $this->templateErrorIsNotNull($field); 
-    $this->templateErrorIsUnique($field);
+    //$this->templateErrorIsNotNull($field); 
+    //$this->templateErrorIsUnique($field);
     $this->templateErrorEnd($field);
-    $this->string .= "    </div>
-  </div>
+    $this->string .= "  </div>
 ";
 
   }
 
 
   protected function select(Field $field) {
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
-    <div class=\"col-sm-10\">
-      <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
-        <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
-        <option *ngFor=\"let option of (opt" . $field->getEntityRef()->getName('XxYy') . "\$ | async)\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
-      </select>
+    $this->string .= "  <div class=\"form-group col-sm\">
+    <label>" . $field->getName("Xx Yy") . "</label>
+    <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
+      <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
+      <option *ngFor=\"let option of (opt" . $field->getEntityRef()->getName('XxYy') . "\$ | async)\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
+    </select>
 ";
     $this->templateErrorStart($field);
-    $this->templateErrorIsNotNull($field); 
-    $this->templateErrorIsUnique($field);
+    //$this->templateErrorIsNotNull($field); 
+    //$this->templateErrorIsUnique($field);
     $this->templateErrorEnd($field);
-    $this->string .= "    </div>
-  </div>
+    $this->string .= "  </div>
 ";
   }
 
   protected function typeahead(Field $field) {
-    $this->string .= "  <div class=\"form-group row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
-    <div class=\"col-sm-10\">
-      <app-typeahead [field]=\"" . $field->getName("xYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
+    $this->string .= "  <div class=\"form-group col-sm\">
+    <label>" . $field->getName("Xx Yy") . "</label>
+    <app-typeahead [field]=\"" . $field->getName("xYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
 ";
       $this->templateErrorStart($field);
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field);
+      //$this->templateErrorIsNotNull($field); 
+      //$this->templateErrorIsUnique($field);
       $this->templateErrorTypeahead($field);
       $this->templateErrorEnd($field);
       
-      $this->string .= "    </div>
-  </div>
+      $this->string .= "  </div>
 ";
   }
 
 
 
   protected function end() {
-    if($this->entity->getFieldsUniqueMultiple()) $this->string .= "  <div class=\"text-danger\" *ngIf=\"fieldset.errors\">
+    /*if($this->entity->getFieldsUniqueMultiple()) $this->string .= "  <div class=\"text-danger\" *ngIf=\"fieldset.errors\">
     <div *ngIf=\"fieldset.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$this->entity->getName("xx-yy")}-admin\" [queryParams]=\"{'id':fieldset.errors.notUnique}\">Cargar</a></div>
   </div>
-";
-    $this->string .= "</fieldset>
+";*/
+    $this->string .= "</div></form>
 ";
   }
 
