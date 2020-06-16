@@ -50,6 +50,7 @@ foreach($structure as $entity) {
             grid($entity);
             detail($entity);
             card($entity);
+            formPick($entity);
         break;
     }
 }
