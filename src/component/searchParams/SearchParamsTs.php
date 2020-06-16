@@ -23,7 +23,7 @@ class Gen_SearchParamsTs extends GenerateFileEntity {
      * se deja como referencia initData por si se necesita volver atras la nueva implementacion
      */
     $this->formGroup();
-    //$this->getters();
+    $this->getters();
     $this->end();
   }
 
@@ -80,7 +80,6 @@ export class " . $this->entity->getName("XxYy") . "SearchParamsComponent extends
   
   protected function getters(){
     foreach($this->entity->getFieldsByType(["nf","fk"]) as $field){
-      if(!$field->isAdmin()) continue;
       $this->string .= "  get {$field->getName('xxYy')}() { return this.fieldset.get('{$field->getName()}')}
 ";
     }
