@@ -34,7 +34,7 @@ class Gen_SearchConditionHtml extends GenerateFileEntity {
 
 
   protected function start(){
-    $this->string .= "<fieldset [formGroup]=\"form\">
+    $this->string .= "<fieldset *ngIf=\"params$ | async as condition\" [formGroup]=\"form\">
 
   <div formArrayName=\"filters\">
     <div class=\"form-row align-items-center\" *ngFor=\"let filter of filters.controls; let i=index\" [formGroupName]=\"i\">
