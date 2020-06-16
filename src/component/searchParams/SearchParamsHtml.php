@@ -19,7 +19,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "<fieldset *ngIf=\"display$ | async as display\" [formGroup]=\"fieldset\">
+    $this->string .= "<fieldset *ngIf=\"params$ | async as params\" [formGroup]=\"fieldset\">
   <div class=\"form-inline\">
 ";
   }
@@ -133,7 +133,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
   protected function typeahead(Field $field) {
     $this->string .= "    <div class=\"form-group mb-2\">
       <label class=\"col-form-label\">" . $field->getName("Xx Yy") . "</label>
-      <app-fieldset-typeahead [fieldName]=\"'" . $field->getName() . "'\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [fieldset]=\"fieldset\" [data$]=\"params$\"></app-fieldset-typeahead>
+      <app-typeahead [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
     </div>
 ";
   }

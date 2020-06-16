@@ -14,13 +14,9 @@ class Gen_SearchConditionTs extends GenerateFileEntity {
 
   protected function generateCode(){
     $this->start();
+    $this->declareOptions();
+    $this->constructor();
     $this->initOptions();
-    //$this->initFilters();
-    /**
-     * initFilters se utilizaba para inicializar principalmente los campos typeahead
-     * Se hizo una nueva reimplementacion de typeahead para inicializar directamente en el mismo componente
-     * se deja como referencia initFilters por si se necesita volver atras la nueva implementacion
-     */
     $this->end();
   }
 
@@ -28,12 +24,10 @@ class Gen_SearchConditionTs extends GenerateFileEntity {
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { SearchConditionComponent } from '@component/search-condition/search-condition.component';
-import { DataDefinitionService } from '@service/data-definition/data-definition.service';
-import { isEmptyObject } from '@function/is-empty-object.function';
+import { Observable } from 'rxjs';
 import { Display } from '@class/display';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { DataDefinitionService } from '@service/data-definition/data-definition.service';
+import { SearchConditionComponent } from '@component/search-condition/search-condition.component';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-search-condition',
@@ -42,7 +36,11 @@ import { map } from 'rxjs/operators';
 export class " . $this->entity->getName("XxYy") . "SearchConditionComponent extends SearchConditionComponent {
   readonly entityName = '" . $this->entity->getName() . "';
 
-  constructor(
+";
+  }
+
+  protected function constructor(){
+    $this->string .= "  constructor(
     protected fb: FormBuilder, 
     protected dd: DataDefinitionService
   )  { super(fb, dd); }
@@ -53,6 +51,12 @@ export class " . $this->entity->getName("XxYy") . "SearchConditionComponent exte
   protected function initFilters(){
     require_once("component/searchCondition/_initFilters.php");
     $gen = new Gen_SearchConditionTs_initFilters($this->entity);
+    $this->string .= $gen->generate();
+  }
+
+  protected function declareOptions(){
+    require_once("component/_initOptions/_DeclareOptions.php");
+    $gen = new Gen_declareOptions($this->entity);
     $this->string .= $gen->generate();
   }
 

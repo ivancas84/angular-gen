@@ -23,7 +23,7 @@ class Gen_SearchParamsTs extends GenerateFileEntity {
      * se deja como referencia initData por si se necesita volver atras la nueva implementacion
      */
     $this->formGroup();
-    //$this->getters();
+    $this->getters();
     $this->end();
   }
 
@@ -31,9 +31,10 @@ class Gen_SearchParamsTs extends GenerateFileEntity {
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Display } from '@class/display';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { SearchParamsComponent } from '@component/search-params/search-params.component';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-search-params',
@@ -80,7 +81,6 @@ export class " . $this->entity->getName("XxYy") . "SearchParamsComponent extends
   
   protected function getters(){
     foreach($this->entity->getFieldsByType(["nf","fk"]) as $field){
-      if(!$field->isAdmin()) continue;
       $this->string .= "  get {$field->getName('xxYy')}() { return this.fieldset.get('{$field->getName()}')}
 ";
     }

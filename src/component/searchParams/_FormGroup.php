@@ -42,8 +42,6 @@ class Gen_SearchParamsTs_formGroup extends GenerateEntity {
     $fields = $this->getEntity()->getFieldsFk();
 
     foreach($fields as $field){
-      if(!$field->isAdmin()) continue;
-
       switch ( $field->getSubtype() ) {
         default: $this->defecto($field); //name, email
       }

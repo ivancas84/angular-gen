@@ -195,7 +195,7 @@ class Gen_SearchConditionHtml extends GenerateFileEntity {
 
   protected function typeahead($fieldName, $entityName){
     $this->string .= "        <!-- " . $fieldName . " -->
-        <app-filter-typeahead *ngSwitchCase=\"'" . $fieldName . "'\" [entityName]=\"'" . $entityName . "'\" [filter]=\"filter\" ></app-filter-typeahead>
+        <app-typeahead *ngSwitchCase=\"'" . $fieldName . "'\" [entityName]=\"'" . $entityName . "'\" [field]=\"v(i)\" ></app-typeahead>
 
 ";
 
