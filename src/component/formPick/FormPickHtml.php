@@ -3,6 +3,10 @@
 require_once("GenerateFileEntity.php");
 
 class GenFormPickHtml extends GenerateFileEntity {
+  /** 
+   * Generar template para componente FormPick
+   * Basado en GenFieldsetHtml 
+   */
 
   public function __construct(Entity $entity, $directorio = null) {
     $file = $entity->getName("xx-yy") . "-form-pick.component.html";
@@ -20,7 +24,8 @@ class GenFormPickHtml extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "<form [formGroup]=\"form\"><div class=\"form-row\">
+    $this->string .= "<form [formGroup]=\"form\">
+<div class=\"form-row\">
 ";
   }
 
@@ -33,7 +38,6 @@ class GenFormPickHtml extends GenerateFileEntity {
       switch ( $field->getSubtype() ) {
         case "checkbox": $this->checkbox($field); break;
         case "date": $this->date($field);  break;
-        //case "float": case "integer": case "cuil": case "dni": $this->number($field); break;
         case "year": $this->year($field); break;
         case "timestamp":
           //la administracion de timestamp se encuentra deshabilitada debido a que requiere de formato adicional
@@ -66,18 +70,17 @@ class GenFormPickHtml extends GenerateFileEntity {
 
   protected function date(Field $field) {
     $this->string .= "  <div class=\"form-group col-sm\">
-    <label>{$field->getName('Xx yy')}</label>
-      <div class=\"input-group\">
-        <input class=\"form-control\" placeholder=\"dd/mm/yyyy\" ngbDatepicker #" . $field->getName("xxYy") . "_=\"ngbDatepicker\" formControlName=\"{$field->getName()}\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
-        <div class=\"input-group-append\">
-          <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . "_.toggle()\" type=\"button\">
-            <span title=\"Calendario\" class=\"oi oi-calendar\"></span>
-          </button>
-          <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . ".setValue(null)\" type=\"button\">
-            <span title=\"Limpiar\" class=\"oi oi-reload\"></span>
-          </button>
-        </div>
+    <div class=\"input-group\">
+      <input class=\"form-control\" placeholder=\"dd/mm/yyyy\" ngbDatepicker #" . $field->getName("xxYy") . "_=\"ngbDatepicker\" formControlName=\"{$field->getName()}\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
+      <div class=\"input-group-append\">
+        <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . "_.toggle()\" type=\"button\">
+          <span title=\"Calendario\" class=\"oi oi-calendar\"></span>
+        </button>
+        <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . ".setValue(null)\" type=\"button\">
+          <span title=\"Limpiar\" class=\"oi oi-reload\"></span>
+        </button>
       </div>
+    </div>
 ";
       //$this->templateErrorStart($field);
       //$this->templateErrorIsNotNull($field); 
@@ -91,7 +94,6 @@ class GenFormPickHtml extends GenerateFileEntity {
 
   protected function time(Field $field) {
     $this->string .= "  <div class=\"form-group col-sm\">
-    <label>{$field->getName('Xx yy')}</label>
     <ngb-timepicker class=\"form-control\" placeholder=\"hh:mm\" formControlName=\"" . $field->getName() . "\" [spinners]=\"false\" [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></ngb-timepicker>
 ";
       //$this->templateErrorStart($field);
@@ -106,7 +108,6 @@ class GenFormPickHtml extends GenerateFileEntity {
 
   protected function timestamp(Field $field) {
     $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
     <div class=\"col-sm-10\">
       <div class=\"input-group\" formGroupName=\"{$field->getName()}\">
         <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" ngbDatepicker #" . $field->getName("xxYy") . "Date=\"ngbDatepicker\" formControlName=\"date\"  [ngClass]=\"{'is-invalid':" . $field->getName("xxYy") . ".date.invalid && " . $field->getName("xxYy") . ".date.dirty || " . $field->getName("xxYy") . ".date.touched))}\">
@@ -127,7 +128,6 @@ class GenFormPickHtml extends GenerateFileEntity {
   protected function year(Field $field) {
 
     $this->string .= "  <div class=\"form-group col-sm\">
-    <label>" . $field->getName("Xx yy") . "</label>
     <input class=\"form-control\" placeholder=\"yyyy\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
       //$this->templateErrorStart($field);
@@ -143,7 +143,6 @@ class GenFormPickHtml extends GenerateFileEntity {
   protected function defecto(Field $field) {
 
     $this->string .= "  <div class=\"form-group col-sm\">
-    <label>" . $field->getName("Xx yy") . "</label>
     <input class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
 ";
       //$this->templateErrorStart($field);
@@ -158,7 +157,6 @@ class GenFormPickHtml extends GenerateFileEntity {
   protected function textarea(Field $field) {
 
     $this->string .= "  <div class=\"form-group col-sm\">
-    <label>" . $field->getName("Xx yy") . "</label>
     <textarea class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></textarea>
 ";
       $this->templateErrorStart($field);
@@ -184,7 +182,6 @@ class GenFormPickHtml extends GenerateFileEntity {
 
   protected function selectValues(Field $field){
     $this->string .= "  <div class=\"form-group col-sm\">
-    <label>" . $field->getName("Xx Yy") . ":</label>
     <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
       <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
 " ;
@@ -206,7 +203,6 @@ class GenFormPickHtml extends GenerateFileEntity {
 
   protected function select(Field $field) {
     $this->string .= "  <div class=\"form-group col-sm\">
-    <label>" . $field->getName("Xx Yy") . "</label>
     <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
       <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
       <option *ngFor=\"let option of (opt" . $field->getEntityRef()->getName('XxYy') . "\$ | async)\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
@@ -222,7 +218,6 @@ class GenFormPickHtml extends GenerateFileEntity {
 
   protected function typeahead(Field $field) {
     $this->string .= "  <div class=\"form-group col-sm\">
-    <label>" . $field->getName("Xx Yy") . "</label>
     <app-typeahead [field]=\"" . $field->getName("xYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
 ";
       //$this->templateErrorStart($field);
@@ -241,7 +236,13 @@ class GenFormPickHtml extends GenerateFileEntity {
     <div *ngIf=\"fieldset.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$this->entity->getName("xx-yy")}-admin\" [queryParams]=\"{'id':fieldset.errors.notUnique}\">Cargar</a></div>
   </div>
 ";*/
-    $this->string .= "</div></form>
+    $this->string .= "  <div class=\"form-group col-sm-1\">
+    <button class=\"form-control\" *ngIf=\"field.pending\" [disabled]=\"true\" class=\"btn btn-outline-secondary\"><span class=\"oi oi-clock\"></span></button>
+    <button class=\"form-control\" *ngIf=\"!field.value && !field.pending\" type=\"submit\" class=\"btn btn-outline-secondary\"><span class=\"oi oi-magnifying-glass\"></span></button>
+    <button class=\"form-control\" *ngIf=\"field.value && !field.pending\" class=\"btn btn-outline-secondary\" (click)=\"field.setValue(null)\"><span class=\"oi oi-reload\"></span></button>
+  </div>
+</div>
+</form>
 ";
   }
 
