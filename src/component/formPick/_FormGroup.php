@@ -17,9 +17,8 @@ class GenFormPick_formGroup extends GenerateEntity {
 
 
   protected function start() {
-    $this->string .= "  formGroup(): FormGroup {
-    let fg: FormGroup = this.fb.group({
-      id:null,
+    $this->string .= "  formGroup(): void {
+    this.form = this.fb.group({
 ";
   }
 
@@ -63,7 +62,6 @@ class GenFormPick_formGroup extends GenerateEntity {
 
   protected function end() {
     $this->string .= "    });
-    return fg;
   }
 
 ";
@@ -120,7 +118,7 @@ class GenFormPick_formGroup extends GenerateEntity {
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
-    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+    //if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
 
     $this->formControlStart($field);
     $this->formControlValidators($validators);
@@ -176,7 +174,7 @@ class GenFormPick_formGroup extends GenerateEntity {
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
-    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+    //if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
 
     $this->formControlStart($field);
     $this->formControlValidators($validators);

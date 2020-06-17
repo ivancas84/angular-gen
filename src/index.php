@@ -50,6 +50,7 @@ foreach($structure as $entity) {
             grid($entity);
             detail($entity);
             card($entity);
+            formPick($entity);
         break;
     }
 }
@@ -173,5 +174,9 @@ function searchParams(Entity $entity) {
 function formPick(Entity $entity){
   require_once("component/formPick/FormPickTs.php");
   $gen = new GenFormPickTs($entity);
+  $gen->generate();
+
+  require_once("component/formPick/FormPickHtml.php");
+  $gen = new GenFormPickHtml($entity);
   $gen->generate();
 }

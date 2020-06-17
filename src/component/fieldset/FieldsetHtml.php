@@ -241,7 +241,6 @@ class FieldsetHtml extends GenerateFileEntity {
       $this->templateErrorStart($field);
       $this->templateErrorIsNotNull($field); 
       $this->templateErrorIsUnique($field);
-      $this->templateErrorTypeahead($field);
       $this->templateErrorEnd($field);
       
       $this->string .= "    </div>
@@ -295,12 +294,6 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
     if($field->getLength()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.maxYear\">Valor no permitido</div>
 ";    
-  }
-
-
-  protected function templateErrorTypeahead(Field $field) {
-    $this->string .= "        <div *ngIf=\"({$field->getName("xxYy")}.touched && {$field->getName("xxYy")}.errors.unselected)\">Valor no seleccionado</div>
-";
   }
 
   protected function templateErrorDate(Field $field) {
