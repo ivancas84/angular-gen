@@ -15,7 +15,7 @@ class Gen_AdminHtml extends GenerateFileEntity {
 
   public function generateCode() {
     $this->string .= "
-<form class=\"container\" [formGroup]=\"adminForm\" (ngSubmit)=\"onSubmit()\" novalidate>
+<form class=\"container\" *ngIf=\"params$ | async\" [formGroup]=\"adminForm\" (ngSubmit)=\"onSubmit()\" novalidate>
   <app-" . $this->getEntity()->getName("xx-yy") . "-fieldset [form]=\"adminForm\" [data\$]=\"data\$\"></app-" . $this->getEntity()->getName("xx-yy") . "-fieldset>
   <button [disabled]=\"adminForm.pending\" type=\"submit\" class=\"btn btn-primary\">Aceptar</button>&nbsp;
   <button type=\"button\" class=\"btn btn-secondary\" (click)=\"back()\"><span class=\"oi oi-arrow-thick-left\" title=\"Volver\"></span></button>
