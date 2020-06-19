@@ -13,7 +13,7 @@ class Gen_AdminTs extends GenerateFileEntity {
 
   protected function generateCode() {
     $this->string .= "import { AdminComponent } from '@component/admin/admin.component';
-import { OnInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -40,7 +40,7 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
     protected validators: ValidatorsService,
     protected storage: SessionStorageService, 
   ) {
-    super(fb, route, router, location, dd, toast, validators, storage);
+    super(fb, route, router, location, dd, toast, storage);
   }
 }
 

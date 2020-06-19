@@ -17,12 +17,6 @@ class FieldsetTs extends GenerateFileEntity {
     $this->declareOptions();
     $this->constructor();
     $this->initOptions();
-    //$this->initData();
-    /**
-     * initData se utilizaba para inicializar principalmente los campos typeahead
-     * Se hizo una nueva reimplementacion de typeahead para inicializar directamente en el mismo componente
-     * se deja como referencia initData por si se necesita volver atras la nueva implementacion
-     */
     $this->formGroup();
     $this->getters();
     $this->end();
@@ -38,6 +32,9 @@ import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Display } from '@class/display';
 import { isEmptyObject } from '@function/is-empty-object.function';
+import { Router } from '@angular/router';
+import { SessionStorageService } from '@service/storage/session-storage.service';
+
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-fieldset',
@@ -54,8 +51,11 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
     $this->string .= "  constructor(
     protected fb: FormBuilder, 
     protected dd: DataDefinitionService, 
-    protected validators: ValidatorsService) {
-    super(fb, dd, validators);
+    protected validators: ValidatorsService,
+    protected router: Router, 
+    protected storage: SessionStorageService 
+  ) {
+    super(router, storage);
   }
 
 ";
