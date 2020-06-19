@@ -19,7 +19,7 @@ class FieldsetHtml extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "<fieldset *ngIf=\"load$ | async\" [formGroup]=\"fieldset\">
+    $this->string .= "<fieldset [formGroup]=\"fieldset\">
 ";
   }
 
