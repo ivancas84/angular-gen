@@ -28,10 +28,8 @@ import { FieldsetComponent } from '@component/fieldset/fieldset.component';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { ValidatorsService } from '@service/validators/validators.service';
-import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Display } from '@class/display';
-import { isEmptyObject } from '@function/is-empty-object.function';
 import { Router } from '@angular/router';
 import { SessionStorageService } from '@service/storage/session-storage.service';
 
