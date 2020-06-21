@@ -192,7 +192,6 @@ class FieldsetTs_formGroup extends GenerateEntity {
   }
 
   protected function typeahead(Field $field) {
-    $validators = ["this.validators.typeaheadSelection('{$field->getEntityRef()->getName()}')"];
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
