@@ -19,7 +19,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "<fieldset *ngIf=\"params$ | async as params\" [formGroup]=\"fieldset\">
+    $this->string .= "<fieldset *ngIf=\"params$ | async\" [formGroup]=\"fieldset\">
   <div class=\"form-inline\">
 ";
   }

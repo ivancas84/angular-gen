@@ -56,6 +56,7 @@ class FieldsetHtml extends GenerateFileEntity {
       switch($field->getSubtype()) {
         case "select": $this->select($field); break;
         case "typeahead": $this->typeahead($field); break;
+        case "file": $this->file($field); break;
       }
     }
   }
@@ -237,6 +238,23 @@ class FieldsetHtml extends GenerateFileEntity {
     <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
     <div class=\"col-sm-10\">
       <app-typeahead [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-typeahead>
+";
+      $this->templateErrorStart($field);
+      $this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsUnique($field);
+      $this->templateErrorEnd($field);
+      
+      $this->string .= "    </div>
+  </div>
+";
+  }
+
+  protected function file(Field $field) {
+    $this->string .= "  <div class=\"form-group row\">
+    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
+    <div class=\"col-sm-10\">
+      <app-upload [field]=\"" . $field->getName("xxYy") . "\"></app-upload>
+      <app-upload [field]=\"" . $field->getName("xxYy") . "\"></app-upload>
 ";
       $this->templateErrorStart($field);
       $this->templateErrorIsNotNull($field); 
