@@ -17,6 +17,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { ToastService } from '@service/ng-bootstrap/toast.service';
 import { ValidatorsService } from '@service/validators/validators.service';
@@ -39,8 +40,9 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
     protected toast: ToastService, 
     protected validators: ValidatorsService,
     protected storage: SessionStorageService, 
+    protected modalService: NgbModal
   ) {
-    super(fb, route, router, location, dd, toast, storage);
+    super(fb, route, router, location, dd, toast, storage, modalService);
   }
 }
 
