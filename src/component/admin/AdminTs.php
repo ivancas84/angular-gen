@@ -10,7 +10,6 @@ class Gen_AdminTs extends GenerateFileEntity {
     parent::__construct($dir, $file, $entity);
   }
 
-
   protected function generateCode() {
     $this->string .= "import { AdminComponent } from '@component/admin/admin.component';
 import { Component } from '@angular/core';
