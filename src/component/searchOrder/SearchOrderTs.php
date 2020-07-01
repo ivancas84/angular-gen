@@ -2,44 +2,31 @@
 <?php
 require_once("GenerateFileEntity.php");
 
-class Gen_SearchConditionTs extends GenerateFileEntity {
-
+class Gen_SearchOrderTs extends GenerateFileEntity {
 
   public function __construct(Entity $entity) {
-    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/search-condition/" . $entity->getName("xx-yy") . "-search-condition/";
-    $file = $entity->getName("xx-yy") . "-search-condition.component.ts";
+    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/search-order/" . $entity->getName("xx-yy") . "-search-order/";
+    $file = $entity->getName("xx-yy") . "-search-order.component.ts";
     parent::__construct($dir, $file, $entity);
   }
 
-
   protected function generateCode(){
     $this->start();
-    $this->initOptions();
     $this->end();
   }
-
 
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { SearchConditionComponent } from '@component/search-condition/search-condition.component';
-import { DataDefinitionService } from '@service/data-definition/data-definition.service';
-import { isEmptyObject } from '@function/is-empty-object.function';
-import { Display } from '@class/display';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
-
+import { SearchOrderComponent } from '@component/search-order/search-order.component';
+    
 @Component({
-  selector: 'app-" . $this->entity->getName("xx-yy") . "-search-condition',
-  templateUrl: './" . $this->entity->getName("xx-yy") . "-search-condition.component.html',
+  selector: 'app-" . $this->entity->getName("xx-yy") . "-search-order',
+  templateUrl: './" . $this->entity->getName("xx-yy") . "-search-order.component.html',
 })
-export class " . $this->entity->getName("XxYy") . "SearchConditionComponent extends SearchConditionComponent {
-  readonly entityName = '" . $this->entity->getName() . "';
+export class " . $this->entity->getName("XxYy") . "SearchOrderComponent extends SearchOrderComponent {
 
-  constructor(
-    protected fb: FormBuilder, 
-    protected dd: DataDefinitionService
-  )  { super(fb, dd); }
+  constructor( protected fb: FormBuilder )  { super(fb); }
 
 ";
   }
@@ -48,9 +35,5 @@ export class " . $this->entity->getName("XxYy") . "SearchConditionComponent exte
     $this->string .= "}
 ";
   }
-
-
-
-
 
 }
