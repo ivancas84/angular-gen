@@ -34,10 +34,10 @@ class Gen_SearchConditionHtml extends GenerateFileEntity {
 
 
   protected function start(){
-    $this->string .= "<fieldset *ngIf=\"params$ | async as condition\" [formGroup]=\"form\">
+    $this->string .= "<fieldset *ngIf=\"load$ | async\" [formGroup]=\"form\">
 
-  <div formArrayName=\"filters\">
-    <div class=\"form-row align-items-center\" *ngFor=\"let filter of filters.controls; let i=index\" [formGroupName]=\"i\">
+  <div formArrayName=\"condition\">
+    <div class=\"form-row align-items-center\" *ngFor=\"let element of elements.controls; let i=index\" [formGroupName]=\"i\">
       <div class=\"col-xs-4\">
         <select class=\"form-control form-control-sm\" formControlName=\"field\">
           <option value=\"\">--Campo--</option>
@@ -223,12 +223,12 @@ class Gen_SearchConditionHtml extends GenerateFileEntity {
   protected function end(){
     $this->string .= "      <div class=\"col-xs-2\">
         <button type=\"button\" class=\"btn btn-danger btn-sm\" (click)=\"removeFilter(i)\"><span class=\"oi oi-x\"></span></button>
-        <button *ngIf=\"(filters.controls.length == (i+1))\" type=\"button\" class=\"btn btn-info btn-sm\" (click)=\"addFilter()\"><span class=\"oi oi-layers\"></span></button>
+        <button *ngIf=\"(elements.controls.length == (i+1))\" type=\"button\" class=\"btn btn-info btn-sm\" (click)=\"addFilter()\"><span class=\"oi oi-layers\"></span></button>
       </div>
     </div>
-  </div> <!-- formArrayName=\"filters\" -->
+  </div> <!-- formArrayName=\"elements\" -->
 
-  <div *ngIf=\"(filters.controls.length == 0)\" class=\"form-row\">
+  <div *ngIf=\"(elements.controls.length == 0)\" class=\"form-row\">
     <div class=\"col\">
       <button type=\"button\" class=\"btn btn-info btn-sm\" (click)=\"addFilter()\"><span class=\"oi oi-layers\"></span></button>
     </div>

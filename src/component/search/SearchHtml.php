@@ -18,8 +18,9 @@ class Gen_SearchHtml extends GenerateFileEntity {
       <app-search-all [form]=\"searchForm\" [display$]=\"display$\"></app-search-all>
       <!--app-{$this->entity->getName('xx-yy')}-search-params [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-params-->
       <!--app-{$this->entity->getName('xx-yy')}-search-condition [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-condition-->
+      <!--app-{$this->entity->getName('xx-yy')}-search-order [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-order-->
       <div class=\"ml-5\">
-        <button type=\"submit\" class=\"btn btn-primary btn-sm\">Buscar <span class=\"oi oi-magnifying-glass\"></span></button>
+        <button [disabled]=\"isSubmitted\" type=\"submit\" class=\"btn btn-primary btn-sm\">Buscar <span class=\"oi oi-magnifying-glass\"></span></button>
       </div>
     </form>
   </div>

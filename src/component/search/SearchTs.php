@@ -15,6 +15,8 @@ class Gen_SearchTs extends GenerateFileEntity {
     $this->string .= "import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '@service/ng-bootstrap/toast.service';
 import { SearchComponent } from '@component/search/search.component';
 
 @Component({
@@ -26,8 +28,10 @@ export class " . $this->entity->getName("XxYy") . "SearchComponent extends Searc
   constructor(
     protected fb: FormBuilder,
     protected router: Router,
+    protected toast: ToastService, 
+    protected modalService: NgbModal
   ) {
-    super(fb, router);
+    super(fb, router, toast, modalService);
   }
 
 }
