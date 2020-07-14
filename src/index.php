@@ -30,6 +30,7 @@ foreach($structure as $entity) {
     case "fieldset": fieldset($entity); break;
     case "table": table($entity); break;
     case "grid": grid($entity); break;
+    case "unordered-list": unorderedList($entity); break;
     case "search": search($entity); break;
     case "search-condition": searchCondition($entity); break;
     case "search-params": searchParams($entity); break;
@@ -50,6 +51,7 @@ foreach($structure as $entity) {
       fieldset($entity);
       table($entity);
       grid($entity);
+      unorderedList($entity);
       detail($entity);
       card($entity);
       formPick($entity);
@@ -142,6 +144,15 @@ function grid(Entity $entity) {
   $gen->generate();
 }
 
+function unorderedList(Entity $entity) {
+  require_once("component/showElement/list/ListTs.php");
+  $gen = new GenListTs($entity);
+  $gen->generate();
+
+  require_once("component/showElement/List/ListHtml.php");
+  $gen = new GenListHtml($entity);
+  $gen->generate();
+}
 function search(Entity $entity) {
   require_once("component/search/SearchTs.php");
   $gen = new Gen_SearchTs($entity);

@@ -173,8 +173,6 @@ class GenTableHtml extends GenerateFileEntity {
     $this->string .= "{{row." . $field->getName() . "}}";
   }
 
-
-
   protected function textarea(Field $field){
     $this->string .= "<span title=\"{{row." . $field->getName() . "}}\">{{row." . $field->getName() . " | summary}}</span>";
   }
@@ -189,11 +187,11 @@ class GenTableHtml extends GenerateFileEntity {
 
 
   protected function time(Field $field){
-    $this->string .= "{{row." . $field->getName() . "}}";
+    $this->string .= "{{row." . $field->getName() . " | toDate | date:'HH:mm'}}";
   }
 
   protected function timestamp(Field $field){
-    $this->string .= "{{row." . $field->getName() . ".date | date:'dd/MM/yyyy'}} {{row." . $field->getName() . ".time}}";
+    $this->string .= "{{row." . $field->getName() . ".date | toDate | date:'dd/MM/yyyy'}} {{row." . $field->getName() . ".time | toDate | date:'HH:mm'}}";
   }
 
 

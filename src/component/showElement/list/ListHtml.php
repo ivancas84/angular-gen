@@ -3,19 +3,18 @@
 require_once("GenerateFileEntity.php");
 
 
-class GenGridHtml extends GenerateFileEntity {
+class GenListHtml extends GenerateFileEntity {
 
   public function __construct(Entity $entity, $directorio = null){
-    $file = $entity->getName("xx-yy") . "-grid.component.html";
-    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/grid/" . $entity->getName("xx-yy") . "-grid/";
+    $file = $entity->getName("xx-yy") . "-list.component.html";
+    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/list/" . $entity->getName("xx-yy") . "-list/";
     parent::__construct($directorio, $file, $entity);
   }
 
   protected function generateCode(){
     $this->start();
-    $this->valuesFk();
-    $this->newCol();
     $this->valuesNf();
+    $this->valuesFk();
     $this->end();
   }
   protected function start(){
@@ -24,18 +23,21 @@ class GenGridHtml extends GenerateFileEntity {
 </ng-template>
   
 <div *ngIf=\"data$ | async as data; else empty\">
-  <div *ngIf=\"data && data.length\"> 
-    <div *ngFor=\"let row of data; let i = index\" class=\"row align-items-center border\">
-      <div class=\"col-md-4\">
-        <h5>{{row.id | label:'{$this->entity->getName()}'}}</h5>
-";          
+
+  <ul *ngIf=\"data && data.length; else empty\" class=\"list-group\">
+    <li *ngFor=\"let row of data; let i = index\" class=\"list-group-item list-group-item-action d-flex justify-content-between align-items-center\">
+      <div>
+        <strong>{{row.id | label:'{$this->entity->getName()}'}}</strong>
+        ";          
         
   }
 
   protected function end(){
     $this->string .= "      </div>
-    </div>
-  </div>
+      <!--button type=\"button\" class=\"btn btn-sm btn-danger\"><span class=\"oi oi-delete\"></span></button-->
+    </li>
+  </ul>
+
 </div>
 ";
   }
@@ -66,7 +68,7 @@ class GenGridHtml extends GenerateFileEntity {
   protected function valuesFk(){
     $first = true;
     foreach($this->getEntity()->getFieldsFk() as $field){
-      $this->string .= "          " ;
+      $this->string .= "        " ;
       if(!$first) $this->string .= "<br>" ;
       else $first = false;
 
@@ -78,11 +80,7 @@ class GenGridHtml extends GenerateFileEntity {
     }
   }
 
-  protected function newCol(){
-    $this->string .= "      </div>
-      <div class=\"col-md\">
-";
-  }
+  
 
 
   protected function defecto(Field $field){
